@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>画稿托位</title>
+  <style>
+    :root {
+      font: 16px/1.45 system-ui, "Microsoft YaHei", sans-serif;
+      color: #1c3230;
+      background: #e3e8df;
+      --green: #286056;
+      --board: #f3f4eb;
+      --card-height: 91px;
+      --card-width: 64px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 19px;
+      background-image: repeating-linear-gradient(90deg, transparent 0 27px, #233c3110 27px 28px);
+    }
+
+    main {
+      width: min(100%, 510px);
+      padding: clamp(20px, 5vw, 36px);
+      background: #fcfaf0;
+      border: 1px solid #829187;
+      box-shadow: 5px 6px 0 #233c3117;
+    }
+
+    .heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    h1 {
+      margin: 0;
+      font: 750 clamp(27px, 5.6vw, 41px)/1.15 "Songti SC", SimSun, serif;
+      letter-spacing: .025em;
+    }
+
+    .status {
+      padding: 5px 8px;
+      border: 1px solid #779588;
+      color: #1f554a;
+      background: #eaf0e2;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .instructions {
+      margin: 8px 0 20px;
+      color: #495b53;
+      font-size: 14px;
+    }
+
+    .board {
+      position: relative;
+      display: grid;
+      gap: 9px;
+      padding: 9px;
+      border: 1px solid #8c9c91;
+      background: var(--board);
+      isolation: isolate;
+      --track-x: 39%;
+    }
+
+    .tray {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 clamp(16px, 6vw, 40px);
+      min-height: 115px;
+      border: 1px dashed #87958a;
+      background: transparent;
+      color: #314a41;
+      font: 700 20px/1 system-ui, "Microsoft YaHei", sans-serif;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .tray[aria-pressed="true"] {
+      border: 1px solid var(--green);
+      color: #194b40;
+      background: #dbe7d9;
+      box-shadow: inset 3px 0 0 var(--green);
+    }
+
+    .tray[data-preview] {
+      border-style: solid;
+      outline: 2px solid #ab5528;
+      outline-offset: -3px;
+    }
+
+    .tray:focus-visible, .art:focus-visible {
+      outline: 2px solid #0b4e42;
+      outline-offset: 3px;
+    }
+
+    .tray::before {
+      content: "";
+      position: absolute;
+      height: 92px;
+      width: 71px;
+      left: calc((var(--track-x) * 1.035) - 4px);
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background:
+        linear-gradient(#6c8b7c 0 0) 0 0 / 9px 1px,
+        linear-gradient(#6c8b7c 0 0) 0 0 / 1px 9px,
+        linear-gradient(#6c8b7c 0 0) 100% 100% / 9px 1px,
+        linear-gradient(#6c8b7c 0 0) 100% 100% / 1px 9px;
+      background-repeat: no-repeat;
+      pointer-events: none;
+    }
+
+    .art {
+      position: absolute;
+      z-index: 2;
+      left: var(--track-x);
+      top: var(--position, 50%);
+      width: var(--card-width);
+      height: var(--card-height);
+      transform: translate(-50%, -50%);
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      outline-offset: 4px;
+    }
+
+    .art[data-dragging] { cursor: grabbing; }
+
+    .art-face {
+      width: 100%;
+      height: 100%;
+      padding: 4px;
+      border: 1px solid #263b2e;
+      box-shadow: 2px 3px 0 #24383054;
+      background: #fff7de;
+      pointer-events: none;
+      transform: scale(var(--cross, 1), var(--along, 1));
+      transform-origin: 50% var(--leading, 50%);
+    }
+
+    .art-picture {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #e6b777 0 52%, #c68b5d 52% 56%, #276b69 56% 100%);
+    }
+
+    .art-picture i { position: absolute; display: block; }
+
+    .sun { left: 59%; top: 12%; width: 22%; aspect-ratio: 1; border-radius: 50%; background: #ffe4a0; }
+    .mountain { inset: 27% 13% 42% -12%; background: #234c44; clip-path: polygon(0 100%, 48% 0, 60% 31%, 70% 12%, 100% 100%); }
+    .face-light { inset: 27% 39% 42% 26%; background: #477368; clip-path: polygon(36% 0, 100% 100%, 54% 86%, 0 100%); }
+    .shore { inset: 50% 0 11%; background: #143c37; clip-path: polygon(0 0, 25% 15%, 18% 24%, 60% 48%, 39% 49%, 57% 66%, 0 73%, 0 100%, 100% 100%, 100% 68%, 82% 70%, 69% 43%, 73% 35%, 28% 11%, 30% 0); }
+    .glint { inset: 57% 8% 22% 39%; background: #efc574; clip-path: polygon(0 0, 91% 0, 93% 10%, 33% 10%, 37% 26%, 100% 26%, 95% 31%, 34% 31%, 10% 61%, 78% 61%, 72% 69%, 0 69%, 21% 28%); }
+
+    .ink {
+      position: absolute;
+      z-index: 1;
+      inset: 0 auto 0 var(--track-x);
+      width: 114px;
+      transform: translateX(-50%);
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .ink-mark {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      opacity: 1;
+      color: #245b4e;
+      pointer-events: none;
+    }
+
+    .ink-mark::before, .ink-mark::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: currentColor;
+      clip-path: polygon(0 100%, 3% 53%, 79% 0, 100% 9%, 70% 42%);
+    }
+
+    .ink-mark::before { left: 18%; width: 10px; }
+    .ink-mark::after { right: 14%; top: 14%; width: 7px; height: 71%; }
+    .ink-mark[data-direction="down"]::before, .ink-mark[data-direction="down"]::after { transform: scaleY(-1); }
+    .ink-mark[data-kind="release"] { color: #ab5528; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .art-face { transform: none !important; }
+      .ink { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="heading">
+      <h1>画稿托位</h1>
+      <output class="status" role="status">当前托位：中</output>
+    </div>
+    <p class="instructions" id="instructions">拖动画稿，或聚焦后按 ↑ / ↓。</p>
+    <div class="board">
+      <div class="art" tabindex="0" role="slider" aria-label="画稿位置" aria-describedby="instructions"
+        aria-orientation="vertical" aria-keyshortcuts="ArrowUp ArrowDown" aria-valuemin="1" aria-valuemax="3"
+        aria-valuenow="2" aria-valuetext="中">
+        <div class="art-face" aria-hidden="true">
+          <div class="art-picture">
+            <i class="sun"></i><i class="mountain"></i><i class="face-light"></i><i class="shore"></i><i class="glint"></i>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="tray" aria-pressed="false">上</button>
+      <button type="button" class="tray" aria-pressed="true">中</button>
+      <button type="button" class="tray" aria-pressed="false">下</button>
+      <div class="ink" aria-hidden="true"></div>
+    </div>
+  </main>
+  <script>
+    const board = document.querySelector('.board');
+    const art = document.querySelector('.art');
+    const face = art.querySelector('.art-face');
+    const status = document.querySelector('.status');
+    const trays = Array.from(board.querySelectorAll('.tray'));
+    const ink = document.querySelector('.ink');
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const tuning = { inkThreshold: 520, releaseThreshold: 720, releaseWindow: 70, inkLimit: 7 };
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+    let committed = 1;
+    let position = 0;
+    let centers = [];
+    let drag = null;
+    let frame = 0;
+    let landing = null;
+
+    function setPosition(y) {
+      position = y;
+      art.style.setProperty('--position', `${y}px`);
+    }
+
+    function nearest(y) {
+      return centers.reduce((best, center, index) =>
+        Math.abs(center - y) < Math.abs(centers[best] - y) ? index : best, 0);
+    }
+
+    function setPreview(index) {
+      trays.forEach((tray, i) => tray.toggleAttribute('data-preview', index === i));
+    }
+
+    function measure() {
+      const top = board.getBoundingClientRect().top + board.clientTop;
+      centers = trays.map(tray => {
+        const rect = tray.getBoundingClientRect();
+        return rect.top + rect.height / 2 - top;
+      });
+      setPosition(centers[committed]);
+    }
+
+    function putInk(y, direction, speed, kind = 'trail') {
+      if (preference.matches) return;
+      if (ink.childElementCount >= tuning.inkLimit) {
+        ink.firstElementChild.getAnimations().forEach(animation => animation.cancel());
+        ink.firstElementChild.remove();
+      }
+
+      const mark = document.createElement('span');
+      const length = clamp(speed / 31, 15, 44);
+      const headingDown = direction > 0;
+      mark.className = 'ink-mark';
+      mark.dataset.kind = kind;
+      mark.dataset.direction = headingDown ? 'down' : 'up';
+      mark.style.height = `${length}px`;
+      mark.style.top = `${headingDown ? y - length : y}px`;
+      mark.style.transformOrigin = headingDown ? 'center bottom' : 'center top';
+      ink.append(mark);
+
+      const animation = mark.animate([
+        { opacity: 1, transform: 'scale(1)' },
+        { opacity: .78, offset: .30 },
+        { opacity: 0, transform: 'scale(.55, .08)' }
+      ], { duration: 220, easing: 'ease-out', fill: 'forwards' });
+      animation.onfinish = () => mark.remove();
+    }
+
+    function clearEffects() {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      landing?.cancel();
+      landing = null;
+      ink.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
+      ink.replaceChildren();
+      face.style.removeProperty('--along');
+      face.style.removeProperty('--cross');
+      face.style.removeProperty('--leading');
+    }
+
+    function currentSpeed(now) {
+      return drag.speed * Math.exp(-Math.max(0, now - drag.lastMoveAt - 24) / 40);
+    }
+
+    function shape(now) {
+      frame = 0;
+      if (!drag || preference.matches) return;
+      const speed = currentSpeed(now);
+      const along = 1 + clamp((Math.abs(speed) - 90) / 3400, 0, .48);
+      face.style.setProperty('--along', along);
+      face.style.setProperty('--cross', along ** -.75);
+      face.style.setProperty('--leading', speed >= 0 ? '100%' : '0%');
+      if (along > 1) frame = requestAnimationFrame(shape);
+    }
+
+    function closeGesture() {
+      if (!drag) return;
+      const id = drag.id;
+      drag = null;
+      art.removeAttribute('data-dragging');
+      setPreview(-1);
+      if (art.hasPointerCapture(id)) art.releasePointerCapture(id);
+    }
+
+    function cancelGesture() {
+      closeGesture();
+      clearEffects();
+      setPosition(centers[committed]);
+    }
+
+    function commit(index, speed = 0) {
+      const old = committed;
+      closeGesture();
+      clearEffects();
+      committed = index;
+      setPosition(centers[index]);
+      if (index === old) return;
+
+      trays.forEach((tray, i) => tray.setAttribute('aria-pressed', String(index === i)));
+      const label = trays[index].textContent;
+      art.setAttribute('aria-valuenow', String(3 - index));
+      art.setAttribute('aria-valuetext', label);
+      status.value = `当前托位：${label}`;
+
+      if (preference.matches) return;
+      const fast = Math.abs(speed) > tuning.releaseThreshold && Math.sign(speed) === Math.sign(index - old);
+      face.style.setProperty('--leading', index < old ? '0%' : '100%');
+      landing = face.animate([
+        { transform: fast ? 'scale(1.11, .83)' : 'scale(1.034, .95)' },
+        { transform: fast ? 'scale(.98, 1.034)' : 'scale(1)', offset: .58 },
+        { transform: 'scale(1)' }
+      ], { duration: fast ? 190 : 130, easing: 'ease-out' });
+      if (fast) {
+        const direction = Math.sign(speed);
+        putInk(centers[index] + direction * (art.offsetHeight / 2 + 17), direction, 800, 'release');
+      }
+    }
+
+    art.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0 || drag) return;
+      clearEffects();
+      art.focus({ preventScroll: true });
+      art.setPointerCapture(event.pointerId);
+      drag = {
+        id: event.pointerId,
+        grabY: event.clientY - position,
+        lastY: position,
+        lastMoveAt: performance.now(),
+        lastInkAt: -Infinity,
+        speed: 0
+      };
+      art.setAttribute('data-dragging', '');
+      setPreview(committed);
+    });
+
+    function yFor(event) {
+      return clamp(event.clientY - drag.grabY, centers[0] - 12, centers[centers.length - 1] + 12);
+    }
+
+    art.addEventListener('pointermove', event => {
+      if (event.pointerId !== drag?.id) return;
+      const now = performance.now();
+      const y = yFor(event);
+      const delta = y - drag.lastY;
+      setPosition(y);
+      setPreview(nearest(y));
+      if (delta === 0) return;
+
+      const dt = clamp(now - drag.lastMoveAt, 8, 130);
+      const raw = clamp(delta * 1000 / dt, -2500, 2500);
+      const oldSpeed = currentSpeed(now);
+      const base = Math.sign(raw) === Math.sign(oldSpeed) ? oldSpeed : 0;
+      drag.speed = preference.matches ? 0 : base + (raw - base) * (1 - Math.exp(-dt / 17));
+      if (Math.abs(drag.speed) > tuning.inkThreshold && now - drag.lastInkAt >= 24) {
+        const direction = Math.sign(drag.speed);
+        const rear = y - direction * (art.offsetHeight / 2 + 5);
+        putInk(rear, direction, Math.abs(drag.speed));
+        drag.lastInkAt = now;
+      }
+      drag.lastY = y;
+      drag.lastMoveAt = now;
+      if (!frame && !preference.matches) frame = requestAnimationFrame(shape);
+    });
+
+    art.addEventListener('pointerup', event => {
+      if (event.pointerId !== drag?.id) return;
+      const now = performance.now();
+      const speed = now - drag.lastMoveAt <= tuning.releaseWindow ? currentSpeed(now) : 0;
+      commit(nearest(yFor(event)), speed);
+    });
+
+    for (const type of ['pointercancel', 'lostpointercapture']) {
+      art.addEventListener(type, event => {
+        if (event.pointerId === drag?.id) cancelGesture();
+      });
+    }
+
+    window.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || !drag) return;
+      event.preventDefault();
+      cancelGesture();
+    });
+
+    art.addEventListener('keydown', event => {
+      const destinations = {
+        ArrowUp: committed - 1, ArrowRight: committed - 1,
+        ArrowDown: committed + 1, ArrowLeft: committed + 1,
+        Home: 2, End: 0
+      };
+      if (!Object.hasOwn(destinations, event.key)) return;
+      event.preventDefault();
+      commit(clamp(destinations[event.key], 0, trays.length - 1));
+    });
+
+    trays.forEach((tray, i) => tray.addEventListener('click', () => commit(i)));
+    window.addEventListener('blur', cancelGesture);
+    art.addEventListener('blur', () => { if (drag) cancelGesture(); });
+    preference.addEventListener('change', () => {
+      clearEffects();
+      if (drag) {
+        drag.speed = 0;
+        drag.lastMoveAt = performance.now();
+        drag.lastInkAt = -Infinity;
+      }
+    });
+
+    measure();
+    const layout = new ResizeObserver(() => {
+      cancelGesture();
+      measure();
+    });
+    layout.observe(board);
+  </script>
+</body>
+</html>

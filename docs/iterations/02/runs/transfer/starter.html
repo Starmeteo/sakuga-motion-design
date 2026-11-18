@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>闭馆巡检</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, sans-serif;
+      color: #212626;
+      background: #efeee9;
+    }
+
+    body { margin: 0; }
+
+    main {
+      width: min(100% - 32px, 640px);
+      margin: 36px auto;
+    }
+
+    h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); }
+    #queue-status { margin: 8px 0 18px; color: #48504e; }
+
+    #work-orders {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .order {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 8px 12px;
+      border: 1px solid #a5aca8;
+      background: #fffefa;
+    }
+
+    .order[data-priority] { border-color: #264e40; }
+    .order h2 { margin: 0; font-size: 1rem; }
+    .order small { color: #48504e; }
+
+    button {
+      padding: 7px 10px;
+      border: 1px solid #65716c;
+      border-radius: 3px;
+      color: inherit;
+      background: #f8f7f1;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button[aria-pressed="true"] { color: #fff; background: #264e40; }
+    button:focus-visible { outline: 3px solid #1662a2; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>闭馆巡检</h1>
+    <p id="queue-status" role="status">当前按工单编号巡检</p>
+    <ol id="work-orders" aria-label="工单队列">
+      <li class="order" data-order="101">
+        <div><h2>核对门禁</h2><small>101 · 北侧入口</small></div>
+        <button type="button" aria-label="优先处理 101 核对门禁" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="102">
+        <div><h2>查看配电箱指示</h2><small>102 · 一层机房</small></div>
+        <button type="button" aria-label="优先处理 102 查看配电箱指示" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="103">
+        <div><h2>记录展区温度</h2><small>103 · 一层西厅</small></div>
+        <button type="button" aria-label="优先处理 103 记录展区温度" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="104">
+        <div><h2>清点对讲机</h2><small>104 · 服务台</small></div>
+        <button type="button" aria-label="优先处理 104 清点对讲机" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="105">
+        <div><h2>检查窗锁</h2><small>105 · 二层走廊</small></div>
+        <button type="button" aria-label="优先处理 105 检查窗锁" aria-pressed="false">优先</button>
+      </li>
+    </ol>
+  </main>
+
+  <script>
+    const queue = document.querySelector('#work-orders');
+    const statusLine = document.querySelector('#queue-status');
+    const orders = Array.from(queue.children);
+    let priorityOrder = null;
+
+    function setPriority(order) {
+      const activeButton = document.activeElement;
+      priorityOrder = priorityOrder === order ? null : order;
+      const nextOrder = priorityOrder
+        ? [priorityOrder, ...orders.filter(row => row !== priorityOrder)]
+        : orders;
+
+      nextOrder.forEach((row, index) => {
+        row.toggleAttribute('data-priority', row === priorityOrder);
+        row.querySelector('button').setAttribute('aria-pressed', row === priorityOrder);
+        const currentRow = queue.children[index];
+        if (row !== currentRow) queue.insertBefore(row, currentRow);
+      });
+
+      if (queue.contains(activeButton) && document.activeElement !== activeButton) {
+        activeButton.focus({ preventScroll: true });
+      }
+      statusLine.textContent = priorityOrder
+        ? `当前优先 ${priorityOrder.dataset.order} ${priorityOrder.querySelector('h2').textContent}`
+        : '当前按工单编号巡检';
+    }
+
+    queue.addEventListener('click', event => {
+      const button = event.target.closest('button');
+      if (button) setPriority(button.closest('.order'));
+    });
+  </script>
+</body>
+</html>

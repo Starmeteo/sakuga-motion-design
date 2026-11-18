@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>印刷工作坊 · 章节卡</title>
+<style>
+  :root {
+    color-scheme: light;
+    color: #262322;
+    background: #eeeae0;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    --serif: "Noto Serif SC", "Songti SC", SimSun, serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  main { width: min(1010px, 100% - 38px); margin: 0 auto; padding: clamp(24px, 8vh, 81px) 0 26px; }
+  header { border-top: 2px solid; padding-top: 14px; padding-bottom: clamp(18px, 3vw, 35px); }
+  h1 { margin: 0; font: 700 clamp(1.7rem, 3vw, 2.5rem)/1.16 var(--serif); }
+  nav { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 418px; gap: 4px; }
+  button {
+    background: #e8e0d2; color: #262322; border: 1px solid #262322; border-bottom: 0;
+    font-family: inherit; font-weight: 700; font-size: .95rem; letter-spacing: .06em;
+    cursor: pointer; min-height: 47px; padding: 7px 10px;
+    box-shadow: inset 0 -4px 0 #bfb3a1;
+  }
+  button:hover { background: #f4eee2; }
+  button[aria-pressed=true] { background: #251e1b; color: #fcf8ef; box-shadow: inset 0 -4px 0 #9c4a36; }
+  button:focus-visible { outline: 2px solid #275e82; outline-offset: 3px; z-index: 2; }
+  section { display: grid; grid-template-columns: minmax(195px, .82fr) minmax(0, 1.75fr); border: 1px solid #262322; background: #f9f5ec; }
+  .notes {
+    min-width: 0; padding: clamp(23px, 4vw, 49px);
+    display: flex; flex-direction: column; justify-content: center; align-items: start;
+  }
+  .notes::before { content: ""; width: 38px; border-top: 4px solid var(--accent); margin-bottom: 18px; }
+  h2 { margin: 0; font: 700 clamp(2.6rem, 6.5vw, 5.85rem)/1 var(--serif); letter-spacing: .045em; }
+  .description { font-size: .995rem; line-height: 1.8; max-width: 25ch; margin: 19px 0 0; }
+  .art-window {
+    background: #d9d0c0; border-inline-start: 1px solid #262322; min-width: 0; overflow: clip;
+    position: relative; isolation: isolate; padding: clamp(18px, 4vw, 40px); margin: 0;
+  }
+  .art-window::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    opacity: .38; background: radial-gradient(#6b5a4d .55px, transparent .65px) 0 0 / 5px 5px;
+  }
+  canvas {
+    display: block; width: 100%; aspect-ratio: 600 / 380; height: auto;
+    box-shadow: 4px 4px 0 #312c2a; border: 1px solid #312c2a;
+    background: #dfbb7a;
+  }
+  .accent-marks { position: absolute; inset: 0; pointer-events: none; }
+  .tail {
+    position: absolute; background: var(--accent); height: 4px; width: 26px;
+    clip-path: polygon(0 20%, 100% 0, 88% 100%, 12% 80%);
+    visibility: hidden;
+  }
+  .tail:nth-child(1) { top: 41%; }
+  .tail:nth-child(2) { top: 46%; margin-inline: 4px; width: 19px; }
+  @media (max-width: 620px) {
+    section { grid-template-columns: minmax(0, 1fr); }
+    .notes { padding: 24px 20px; }
+    .notes::before { margin-bottom: 12px; border-top-width: 3px; }
+    .description { max-width: 42ch; margin-top: 12px; }
+    .art-window { border-inline-start: 0; border-top: 1px solid #262322; }
+  }
+</style>
+<main>
+  <header><h1>印刷工作坊</h1></header>
+  <nav aria-label="工作坊章节">
+    <button type="button" aria-pressed="true" aria-controls="chapter">纸面</button>
+    <button type="button" aria-pressed="false" aria-controls="chapter">走墨</button>
+    <button type="button" aria-pressed="false" aria-controls="chapter">收版</button>
+  </nav>
+  <section id="chapter" aria-labelledby="chapter-title" style="--accent: #77581e">
+    <div class="notes" aria-live="polite" aria-atomic="true">
+      <h2 id="chapter-title">纸面</h2>
+      <p id="chapter-description" class="description">用纸角对准套印线，压平纸面。固定四角后，纸就不易跑位。</p>
+    </div>
+    <figure class="art-window">
+      <canvas id="art" role="img" aria-label="一叠带定位线的试印纸，表面压出一片叶形"></canvas>
+      <div class="accent-marks" id="accent-marks" aria-hidden="true"></div>
+    </figure>
+  </section>
+</main>
+<script>
+  const chapters = [
+    {name: "纸面", description: "用纸角对准套印线，压平纸面。固定四角后，纸就不易跑位。",
+      picture: "一叠带定位线的试印纸，表面压出一片叶形", accent: "#77581e", paint: drawPaper},
+    {name: "走墨", description: "把一小团墨摊薄，用墨辊往复轻推。等版面上的墨色厚薄一致，再覆纸。",
+      picture: "一支墨辊把深蓝印墨碾开，路过的地方留下平行墨纹", accent: "#963d32", paint: drawInk},
+    {name: "收版", description: "从同一侧慢慢揭纸，检查叶脉有没有断开。把试印晾平，再擦净印板。",
+      picture: "揭下的纸上留下深青叶片，右角掀起露出纸背", accent: "#3a685b", paint: drawProof}
+  ];
+  const width = 600;
+  const height = 380;
+  const dark = "#2a2522";
+  const board = document.querySelector("#art");
+  const context = board.getContext("2d");
+  const title = document.querySelector("#chapter-title");
+  const description = document.querySelector("#chapter-description");
+  const chapter = document.querySelector("#chapter");
+  const accentMarks = document.querySelector("#accent-marks");
+  const buttons = [...document.querySelectorAll("nav button")];
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let selected = 0;
+  let batch = [];
+
+  function polygon(points, fill, stroke = dark, lineWidth = 2) {
+    context.beginPath();
+    context.moveTo(...points[0]);
+    points.slice(1).forEach(point => context.lineTo(...point));
+    context.closePath();
+    context.fillStyle = fill;
+    context.fill();
+    if (lineWidth) {
+      context.lineWidth = lineWidth;
+      context.strokeStyle = stroke;
+      context.stroke();
+    }
+  }
+
+  function lines(points, stroke, lineWidth = 2) {
+    context.beginPath();
+    context.moveTo(...points[0]);
+    points.slice(1).forEach(point => context.lineTo(...point));
+    context.lineWidth = lineWidth;
+    context.strokeStyle = stroke;
+    context.stroke();
+  }
+
+  function dots(x1, y1, x2, y2, color, spacing = 8) {
+    context.fillStyle = color;
+    for (let y = y1; y < y2; y += spacing) {
+      for (let x = x1; x < x2; x += spacing) {
+        const jitter = Math.round((x * y) % 7 / 4);
+        context.fillRect(x + jitter, y, 1.45, 1.45);
+      }
+    }
+  }
+
+  function background(color, dotColor) {
+    context.fillStyle = color;
+    context.fillRect(0, 0, width, height);
+    dots(16, 17, 585, 366, dotColor, 7);
+    const length = 18;
+    for (const [x, y, horizontal, vertical] of [[21,21,1,1],[579,21,-1,1],[21,359,1,-1],[579,359,-1,-1]]) {
+      lines([[x, y + length * vertical], [x, y], [x + length * horizontal, y]], dark);
+    }
+  }
+
+  function leaf(fill, vein) {
+    context.beginPath();
+    context.moveTo(-109, 71);
+    context.bezierCurveTo(-104, -26, -6, -96, 119, -64);
+    context.bezierCurveTo(108, 6, 22, 82, -109, 71);
+    context.fillStyle = fill;
+    context.fill();
+    lines([[-123, 82], [-71, 50], [-27, 15], [21, -16], [76, -41]], vein, 3);
+    for (let index = 0; index < 4; index++) {
+      const x = -61 + index * 34;
+      const y = 42 - index * 24;
+      lines([[x - 1, y + 1], [x - 23, y - 32], [x - 22, y - 53]], vein);
+      lines([[x - 9, y + 8], [x + 33, y + 21], [x + 47, y + 19]], vein);
+    }
+  }
+
+  function drawPaper() {
+    background("#ddb878", "#bf9859");
+    polygon([[137,82],[462,62],[497,301],[153,327]], "#a27643");
+    polygon([[115,75],[453,53],[478,289],[136,314]], "#e4d0a5");
+    polygon([[104,62],[440,43],[464,280],[128,302]], "#fff0c8");
+    context.save();
+    context.translate(287, 168);
+    context.rotate(-.082);
+    dots(-140, -87, 145, 89, "#e3cda0", 6);
+    leaf("#d9c392", "#f5e9c1");
+    context.restore();
+    polygon([[416,283],[439,249],[464,280]], "#bc9c64");
+    for (const [x, y] of [[129,83],[424,65],[153,278],[439,258]]) {
+      lines([[x - 8,y],[x + 8,y]], "#725633", 1.5);
+      lines([[x,y - 8],[x,y + 8]], "#725633", 1.5);
+    }
+  }
+
+  function drawInk() {
+    background("#bd6655", "#96514b");
+    polygon([[80,246],[449,108],[529,237],[170,340]], "#6b3731");
+    polygon([[71,229],[439,95],[519,221],[161,326]], "#e9ba84");
+    polygon([[96,234],[432,119],[481,203],[160,297]], "#28373a", "#28373a", 0);
+    context.save();
+    context.translate(317, 190);
+    context.rotate(-.329);
+    for (let y = 10; y <= 58; y += 8) {
+      lines([[-160, y], [144 - y / 4, y]], "#63716a", y % 3 === 0 ? 2 : 1);
+    }
+    polygon([[-102,-20],[-96,-41],[124,-41],[124,-10],[-98,-7]], "#ad7f61");
+    polygon([[22,-32],[33,-117],[61,-120],[46,-24]], "#df9f5c");
+    polygon([[20,-114],[26,-161],[69,-161],[67,-114],[59,-104],[31,-105]], "#e6aa62");
+    lines([[33,-149],[56,-149]], "#ffd895", 3);
+    polygon([[-123,-35],[111,-35],[122,-27],[122,10],[111,19],[-123,19]], "#293b3f");
+    polygon([[-113,-31],[109,-31],[109,-14],[-113,-14]], "#61726b", dark, 0);
+    context.fillStyle = "#9b7260";
+    context.beginPath();
+    context.ellipse(-121, -8, 13, 27, 0, 0, Math.PI * 2);
+    context.fill();
+    context.stroke();
+    lines([[-131,-8],[-116,-8]], dark, 2);
+    context.restore();
+  }
+
+  function drawProof() {
+    background("#679284", "#4b736a");
+    polygon([[120,91],[467,79],[502,301],[156,331]], "#456459");
+    polygon([[113,79],[450,57],[479,248],[447,289],[143,315]], "#f4e2b6");
+    context.save();
+    context.translate(288, 184);
+    context.rotate(-.084);
+    dots(-135, -91, 133, 87, "#dcc998", 7);
+    leaf("#244d42", "#f1dcb0");
+    context.restore();
+    polygon([[447,289],[446,252],[479,248]], "#baae89");
+    lines([[144,117],[141,101],[158,100]], "#6d6b43", 2);
+    lines([[433,268],[435,280],[419,281]], "#6d6b43", 2);
+  }
+
+  function draw() {
+    const density = window.devicePixelRatio || 1;
+    const designWidth = board.clientWidth * density;
+    board.width = Math.max(1, Math.round(designWidth));
+    board.height = Math.max(1, Math.round(designWidth * height / width));
+    context.setTransform(board.width / width, 0, 0, board.height / height, 0, 0);
+    context.lineJoin = "round";
+    chapters[selected].paint();
+  }
+
+  function settle() {
+    batch.forEach(animation => animation.cancel());
+    batch = [];
+    accentMarks.replaceChildren();
+  }
+
+  function playReveal(direction) {
+    const distance = Math.min(48, Math.max(24, board.clientWidth * .125));
+    const origin = direction > 0 ? "left center" : "right center";
+    const duration = 330;
+    const animations = [
+      board.animate([
+        {transform: `translateX(${direction * distance}px) scale(1.065, .96)`, transformOrigin: origin, offset: 0, easing: "cubic-bezier(.18,.76,.24,1)"},
+        {transform: `translateX(${direction * -5}px) scale(.985, 1.012)`, transformOrigin: origin, offset: .58, easing: "ease-out"},
+        {transform: "none", transformOrigin: origin, offset: 1}
+      ], duration)
+    ];
+    for (let index = 0; index < 2; index++) {
+      const trace = document.createElement("i");
+      trace.className = "tail";
+      trace.style[direction > 0 ? "right" : "left"] = "5px";
+      trace.style.transformOrigin = direction > 0 ? "100% 50%" : "0% 50%";
+      accentMarks.append(trace);
+      animations.push(trace.animate([
+        {visibility: "visible", transform: `translateX(${direction * 3}px) scaleX(.28)`, offset: 0},
+        {visibility: "visible", transform: `translateX(${direction * -8}px) scaleX(1)`, offset: .36, easing: "ease-out"},
+        {visibility: "visible", transform: `translateX(${direction * -13}px) scaleX(.02) scaleY(.35)`, offset: 1}
+      ], {delay: 28 + index * 12, duration: 157}));
+    }
+    batch = animations;
+    animations[0].finished.then(() => {
+      if (batch === animations) settle();
+    }, () => {});
+  }
+
+  function selectChapter(next) {
+    if (next === selected) return;
+    settle();
+    const direction = Math.sign(next - selected);
+    selected = next;
+    const active = chapters[selected];
+    buttons.forEach((button, index) => button.setAttribute("aria-pressed", String(index === selected)));
+    title.textContent = active.name;
+    description.textContent = active.description;
+    board.setAttribute("aria-label", active.picture);
+    chapter.style.setProperty("--accent", active.accent);
+    draw();
+    if (!reducedMotion.matches) playReveal(direction);
+  }
+
+  buttons.forEach((button, index) => button.addEventListener("click", () => selectChapter(index)));
+  reducedMotion.addEventListener("change", settle);
+  window.addEventListener("resize", () => {
+    settle();
+    draw();
+  });
+  window.addEventListener("pagehide", settle);
+  draw();
+</script>
+</html>

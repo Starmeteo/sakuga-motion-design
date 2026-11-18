@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>画稿托位</title>
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #f5eee1;
+    --ink: #29221a;
+    --red: #a63324;
+    --edge: #a4957f;
+    --stage: #e9dfce;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: clamp(21px, 5vw, 64px) 16px;
+    background: var(--paper);
+    color: var(--ink);
+    font: 1rem/1.5 system-ui, "Microsoft YaHei", sans-serif;
+  }
+  main { width: min(100%, 620px); margin-inline: auto; }
+  h1 {
+    margin: 0;
+    font: 700 clamp(1.9rem, 6vw, 3rem)/1.17 Georgia, "Songti SC", SimSun, serif;
+    letter-spacing: .035em;
+  }
+  #instructions { margin: 9px 0 20px; color: #5c4c3c; font-size: .875rem; }
+  .board {
+    --rail: clamp(64px, 21%, 110px);
+    --art-width: clamp(76px, 26%, 100px);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: repeat(3, 136px);
+    padding: 9px;
+    border: 1px solid var(--edge);
+    background:
+      radial-gradient(circle at 2px 2px, #85725925 1px, transparent 1.2px) 0 0 / 12px 12px,
+      var(--stage);
+  }
+  .bay {
+    display: grid;
+    grid-template-columns: var(--rail) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 7px 9px;
+  }
+  .bay + .bay { border-top: 1px solid #b6a790; }
+  .slot {
+    min-height: 50px;
+    border: 1px solid #9b8e7d;
+    background: #f9f2e6;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .slot::before {
+    content: "";
+    display: inline-block;
+    width: .64em;
+    height: .64em;
+    margin-inline-end: .55em;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    vertical-align: .045em;
+  }
+  .slot:hover { border-color: var(--red); }
+  .slot[aria-pressed="true"] { background: var(--ink); color: #fff8eb; border-color: var(--ink); }
+  .slot[aria-pressed="true"]::before { background: #f0a180; border-color: #f0a180; }
+  .slot:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; position: relative; z-index: 2; }
+
+  .tray {
+    height: 100%;
+    border: 1px dashed #998a74;
+    background: #f8efe17d;
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+  .tray::before,
+  .tray::after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: solid currentColor;
+    color: #85745d;
+  }
+  .tray::before { top: 7px; left: 7px; border-width: 1px 0 0 1px; }
+  .tray::after { right: 7px; bottom: 7px; border-width: 0 1px 1px 0; }
+  .bay[data-current] .tray { border: 1px solid #b95f4d; background: #e9c8b58f; }
+  .bay[data-current] .tray::before, .bay[data-current] .tray::after { color: var(--red); }
+  .bay[data-preview] .tray { outline: 2px solid var(--red); outline-offset: -2px; background: #f1c6aa; }
+
+  .ink {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .draft {
+    position: absolute;
+    left: calc(50% + var(--rail) / 2 + 6px);
+    top: 50%;
+    width: var(--art-width);
+    height: 112px;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+  .draft:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+  .draft[data-dragging] { cursor: grabbing; }
+  .sheet {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border: 1px solid #342d23;
+    background:
+      radial-gradient(circle, #794f2917 1px, transparent 1.25px) 1px 2px / 5px 5px,
+      #f7e5b9;
+    box-shadow: 3px 4px 0 #48372759;
+  }
+  .sheet::before, .sheet::after { content: ""; position: absolute; }
+  .sheet::before {
+    width: 35%;
+    aspect-ratio: 1;
+    right: 18%;
+    top: 18%;
+    border-radius: 50%;
+    background: #b83f2b;
+  }
+  .sheet::after {
+    inset: 37% -1px 0;
+    background: #272f29;
+    clip-path: polygon(0 41%, 24% 12%, 35% 26%, 53% 55%, 65% 42%, 80% 57%, 100% 27%, 100% 100%, 0 100%);
+  }
+  .ridge {
+    position: absolute;
+    z-index: 1;
+    inset: 57% 0 0;
+    background: #626d51;
+    clip-path: polygon(0 42%, 31% 2%, 46% 18%, 25% 53%, 56% 41%, 76% 59%, 100% 37%, 100% 100%, 0 100%);
+  }
+  .river {
+    position: absolute;
+    z-index: 2;
+    inset: 74% 14% 11%;
+    background: #ecdbad;
+    clip-path: polygon(10% 28%, 94% 14%, 71% 35%, 40% 42%, 57% 58%, 17% 85%, 26% 56%, 0 42%);
+  }
+  #position {
+    display: block;
+    padding: 8px 0 0;
+    color: #5e3125;
+    font-size: .875rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 450px) {
+    .board { grid-template-rows: repeat(3, 121px); padding: 6px; }
+    .draft { height: 99px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sheet { transform: none !important; }
+    .ink { visibility: hidden; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>画稿托位</h1>
+  <p id="instructions">拖动画稿或点选托位。聚焦画稿后可用 ↑ 和 ↓ 移动。</p>
+  <div class="board">
+    <div class="bay">
+      <button class="slot" type="button" aria-pressed="false">上</button>
+      <div class="tray" aria-hidden="true"></div>
+    </div>
+    <div class="bay" data-current>
+      <button class="slot" type="button" aria-pressed="true">中</button>
+      <div class="tray" aria-hidden="true"></div>
+    </div>
+    <div class="bay">
+      <button class="slot" type="button" aria-pressed="false">下</button>
+      <div class="tray" aria-hidden="true"></div>
+    </div>
+    <canvas class="ink" aria-hidden="true"></canvas>
+    <div class="draft" tabindex="0" role="group" aria-label="竖向画稿"
+         aria-describedby="instructions position" aria-keyshortcuts="ArrowUp ArrowDown">
+      <div class="sheet" aria-hidden="true"><span class="ridge"></span><span class="river"></span></div>
+    </div>
+  </div>
+  <output id="position">画稿在中位</output>
+</main>
+<script>
+  const board = document.querySelector('.board');
+  const bays = [...document.querySelectorAll('.bay')];
+  const slots = bays.map(bay => bay.querySelector('button'));
+  const trays = bays.map(bay => bay.querySelector('.tray'));
+  const draft = document.querySelector('.draft');
+  const sheet = draft.querySelector('.sheet');
+  const status = document.querySelector('#position');
+  const ink = document.querySelector('.ink');
+  const context = ink.getContext('2d');
+  const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+
+  const maxMarks = 12;
+  const inkThreshold = 1.25; // Rail lengths per second.
+  const releaseThreshold = 2;
+  const freshReleaseMs = 94;
+  let reduced = motionPreference.matches;
+  let selected = 1;
+  let drag = null;
+  let marks = [];
+  let frame = 0;
+  let landing = null;
+  let geometry;
+
+  const clamp = (value, low, high) => Math.min(high, Math.max(low, value));
+
+  function measure() {
+    const boardRect = ink.getBoundingClientRect();
+    const trayRects = trays.map(tray => tray.getBoundingClientRect());
+    const centers = trayRects.map(rect => rect.top - boardRect.top + rect.height / 2);
+    return {
+      centers,
+      span: centers.at(-1) - centers[0],
+      x: trayRects[0].left - boardRect.left + trayRects[0].width / 2,
+      draftHalf: draft.offsetHeight / 2,
+      draftWidth: draft.offsetWidth,
+      width: boardRect.width,
+      height: boardRect.height
+    };
+  }
+
+  function drawPosition(y) {
+    draft.style.left = geometry.x + 'px';
+    draft.style.top = y + 'px';
+  }
+
+  function refreshLayout() {
+    geometry = measure();
+    const dpr = window.devicePixelRatio || 1;
+    ink.width = Math.round(geometry.width * dpr);
+    ink.height = Math.round(geometry.height * dpr);
+    context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    clearMotion();
+    if (drag) movePreview(drag.lastY);
+    else drawPosition(geometry.centers[selected]);
+  }
+
+  function clearInk() {
+    context.clearRect(0, 0, geometry.width, geometry.height);
+  }
+
+  function clearMotion() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    marks = [];
+    clearInk();
+    landing?.cancel();
+    landing = null;
+    sheet.style.transform = '';
+    sheet.style.transformOrigin = '';
+    if (drag) {
+      drag.velocity = 0;
+      drag.movedAt = -Infinity;
+      drag.emittedAt = -Infinity;
+    }
+  }
+
+  function currentVelocity(now) {
+    if (!drag) return 0;
+    const idle = Math.max(0, now - drag.movedAt - 24);
+    return drag.velocity * Math.exp(-idle / 42);
+  }
+
+  function nextFrame() {
+    if (frame === 0 && !reduced) frame = requestAnimationFrame(paintMotion);
+  }
+
+  function paintMotion(now) {
+    frame = 0;
+    if (reduced) return;
+    const velocity = currentVelocity(now);
+    if (drag) {
+      const stretch = clamp((Math.abs(velocity) - .4) * .073, 0, .29);
+      if (stretch > .005) {
+        sheet.style.transformOrigin = velocity < 0 ? 'center top' : 'center bottom';
+        sheet.style.transform = 'scale(' + (1 + stretch) ** -.65 + ', ' + (1 + stretch) + ')';
+      } else {
+        sheet.style.transform = '';
+        sheet.style.transformOrigin = '';
+      }
+    }
+
+    marks = marks.filter(mark => now - mark.born < mark.life);
+    clearInk();
+    for (const mark of marks) {
+      const decay = clamp(1 - (now - mark.born) / mark.life, 0, 1);
+      const tip = mark.y + mark.direction * mark.length * (1 - decay) * .16;
+      const back = tip - mark.direction * mark.length * decay;
+      const width = mark.width * decay;
+      context.fillStyle = mark.color;
+      context.beginPath();
+      context.moveTo(mark.x - width, tip - mark.direction * 3);
+      context.lineTo(mark.x + width * .45, tip);
+      context.lineTo(mark.x + width * .18, back);
+      context.lineTo(mark.x - width * .6, back + mark.direction * 5 * decay);
+      context.closePath();
+      context.fill();
+    }
+    if (marks.length || Math.abs(velocity) > .41) nextFrame();
+  }
+
+  function addTrail(now, velocity) {
+    const direction = Math.sign(velocity);
+    const back = drag.previewY - direction * (geometry.draftHalf + 7);
+    const half = geometry.draftWidth / 2;
+    const length = clamp(Math.abs(velocity) * 9, 17, 57);
+    marks.push(
+      { x: geometry.x - half - 7, y: back, direction, length,
+        width: 2.8, born: now, life: 182, color: '#32281e' },
+      { x: geometry.x + half + 6, y: back - direction * 7, direction, length: length * .62,
+        width: 1.8, born: now, life: 139, color: '#a63324' }
+    );
+    marks = marks.slice(-maxMarks);
+  }
+
+  function movePreview(clientY) {
+    const raw = clientY - ink.getBoundingClientRect().top - drag.grabOffset;
+    const centers = geometry.centers;
+    drag.previewY = clamp(raw, centers[0], centers.at(-1));
+    drawPosition(drag.previewY);
+    const nearest = centers.reduce((best, y, i) =>
+      Math.abs(drag.previewY - y) < Math.abs(drag.previewY - centers[best]) ? i : best, drag.target);
+    if (nearest !== drag.target &&
+        Math.abs(drag.previewY - centers[nearest]) + 6 < Math.abs(drag.previewY - centers[drag.target])) {
+      drag.target = nearest;
+    }
+    bays.forEach((bay, i) => bay.toggleAttribute('data-preview', i === drag.target));
+  }
+
+  function commit(index) {
+    selected = index;
+    bays.forEach((bay, i) => {
+      bay.toggleAttribute('data-current', i === selected);
+      slots[i].setAttribute('aria-pressed', String(i === selected));
+    });
+    const message = '画稿在' + slots[selected].textContent + '位';
+    if (status.textContent !== message) status.textContent = message;
+    drawPosition(geometry.centers[selected]);
+  }
+
+  function confirmFastDrop(direction) {
+    const now = performance.now();
+    const y = geometry.centers[selected];
+    const side = geometry.draftWidth / 2 + 10;
+    sheet.style.transformOrigin = direction > 0 ? 'center bottom' : 'center top';
+    landing = sheet.animate([
+      { transform: 'scale(1.14, .84)', offset: 0 },
+      { transform: 'scale(.99, 1.02)', offset: .63 },
+      { transform: 'none', offset: 1 }
+    ], { duration: 166, easing: 'ease-out' });
+    for (const sign of [-1, 1]) {
+      marks.push({
+        x: geometry.x + sign * side,
+        y: y + direction * (geometry.draftHalf + 1),
+        direction, length: 24, width: 3.2, born: now, life: 125, color: '#a63324'
+      });
+    }
+    nextFrame();
+  }
+
+  function endDrag(commitDrop, event) {
+    if (!drag) return;
+    if (event) movePreview(event.clientY);
+    const gesture = drag;
+    const now = performance.now();
+    const releaseVelocity = !reduced && now - gesture.movedAt <= freshReleaseMs
+      ? currentVelocity(now) : 0;
+    clearMotion();
+    drag = null;
+    draft.removeAttribute('data-dragging');
+    bays.forEach(bay => bay.removeAttribute('data-preview'));
+    if (draft.hasPointerCapture(gesture.id)) draft.releasePointerCapture(gesture.id);
+    if (!commitDrop) {
+      drawPosition(geometry.centers[selected]);
+      return;
+    }
+    const changed = gesture.target !== selected;
+    commit(gesture.target);
+    if (changed && Math.abs(releaseVelocity) >= releaseThreshold) confirmFastDrop(Math.sign(releaseVelocity));
+  }
+
+  function choose(index) {
+    endDrag(false);
+    clearMotion();
+    commit(index);
+  }
+
+  draft.addEventListener('pointerdown', event => {
+    if (drag || event.button !== 0 || !event.isPrimary) return;
+    clearMotion();
+    draft.focus({ preventScroll: true });
+    const now = performance.now();
+    drag = {
+      id: event.pointerId,
+      grabOffset: event.clientY - ink.getBoundingClientRect().top - geometry.centers[selected],
+      lastY: event.clientY,
+      previewY: geometry.centers[selected],
+      sampledAt: now,
+      movedAt: -Infinity,
+      emittedAt: -Infinity,
+      target: selected,
+      velocity: 0,
+      direction: 0
+    };
+    draft.setPointerCapture(event.pointerId);
+    draft.setAttribute('data-dragging', '');
+    movePreview(event.clientY);
+  });
+
+  draft.addEventListener('pointermove', event => {
+    if (event.pointerId !== drag?.id) return;
+    const now = performance.now();
+    const previousY = drag.previewY;
+    movePreview(event.clientY);
+    const distance = drag.previewY - previousY;
+    drag.lastY = event.clientY;
+    if (!reduced && Math.abs(distance) >= .5) {
+      const dt = clamp(now - drag.sampledAt, 8, 64);
+      const raw = clamp(distance / geometry.span / (dt / 1000), -8, 8);
+      const direction = Math.sign(raw);
+      if (drag.direction && drag.direction !== direction) {
+        marks = [];
+        drag.velocity = 0;
+        drag.emittedAt = -Infinity;
+      }
+      const priorVelocity = currentVelocity(now);
+      drag.velocity = priorVelocity + (raw - priorVelocity) * (1 - Math.exp(-dt / 20));
+      drag.movedAt = now;
+      drag.sampledAt = now;
+      drag.direction = direction;
+      if (Math.abs(drag.velocity) >= inkThreshold && now - drag.emittedAt >= 21) {
+        addTrail(now, drag.velocity);
+        drag.emittedAt = now;
+      }
+      nextFrame();
+    }
+  });
+
+  draft.addEventListener('pointerup', event => {
+    if (event.pointerId === drag?.id) endDrag(true, event);
+  });
+  for (const type of ['pointercancel', 'lostpointercapture']) {
+    draft.addEventListener(type, event => {
+      if (event.pointerId === drag?.id) endDrag(false);
+    });
+  }
+
+  slots.forEach((slot, index) => slot.addEventListener('click', () => choose(index)));
+  draft.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowUp' && event.key !== 'ArrowDown') return;
+    event.preventDefault();
+    choose(clamp(selected + (event.key === 'ArrowUp' ? -1 : 1), 0, slots.length - 1));
+  });
+  window.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && drag) {
+      event.preventDefault();
+      endDrag(false);
+    }
+  });
+  window.addEventListener('blur', () => endDrag(false));
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      endDrag(false);
+      clearMotion();
+    }
+  });
+  motionPreference.addEventListener('change', event => {
+    reduced = event.matches;
+    clearMotion();
+    if (drag) drag.sampledAt = performance.now();
+  });
+  window.addEventListener('resize', refreshLayout);
+  refreshLayout();
+</script>
+</body>
+</html>

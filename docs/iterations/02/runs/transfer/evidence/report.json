@@ -1,0 +1,230 @@
+{
+  "browser": "159.0.8154.6",
+  "checks": {
+    "business": {
+      "pass": true
+    },
+    "keyboard-and-focus": {
+      "pass": true
+    },
+    "direction-samples": {
+      "pass": true
+    },
+    "rapid-70ms": {
+      "pass": true
+    },
+    "touch-360": {
+      "pass": true
+    },
+    "reduced-initial-and-dynamic": {
+      "pass": true
+    }
+  },
+  "frames": [
+    {
+      "file": "idle.png",
+      "requested": null,
+      "window": null,
+      "state": {
+        "order": "101,102,103,104,105",
+        "priority": "",
+        "focus": null,
+        "focusVisible": false,
+        "status": "当前按工单编号巡检",
+        "positions": {
+          "101": 123,
+          "102": 201,
+          "103": 279,
+          "104": 357,
+          "105": 435
+        },
+        "animations": 0
+      }
+    },
+    {
+      "file": "advance-start.png",
+      "requested": 0,
+      "window": [
+        3,
+        31
+      ],
+      "state": {
+        "order": "104,101,102,103,105",
+        "priority": "104",
+        "focus": "104",
+        "focusVisible": false,
+        "status": "当前优先 104 清点对讲机",
+        "positions": {
+          "101": 123,
+          "102": 201,
+          "103": 279,
+          "104": 359.4,
+          "105": 435
+        },
+        "animations": 7
+      }
+    },
+    {
+      "file": "advance-mid.png",
+      "requested": 115,
+      "window": [
+        120,
+        146
+      ],
+      "state": {
+        "order": "104,101,102,103,105",
+        "priority": "104",
+        "focus": "104",
+        "focusVisible": false,
+        "status": "当前优先 104 清点对讲机",
+        "positions": {
+          "101": 178,
+          "102": 260.1,
+          "103": 340.5,
+          "104": 223.6,
+          "105": 435
+        },
+        "animations": 7
+      }
+    },
+    {
+      "file": "advance-end.png",
+      "requested": 740,
+      "window": [
+        741,
+        755
+      ],
+      "state": {
+        "order": "104,101,102,103,105",
+        "priority": "104",
+        "focus": "104",
+        "focusVisible": false,
+        "status": "当前优先 104 清点对讲机",
+        "positions": {
+          "101": 201,
+          "102": 279,
+          "103": 357,
+          "104": 123,
+          "105": 435
+        },
+        "animations": 0
+      }
+    },
+    {
+      "file": "return-start.png",
+      "requested": 0,
+      "window": [
+        2,
+        21
+      ],
+      "state": {
+        "order": "101,102,103,104,105",
+        "priority": "",
+        "focus": "104",
+        "focusVisible": false,
+        "status": "当前按工单编号巡检",
+        "positions": {
+          "101": 201,
+          "102": 279,
+          "103": 357,
+          "104": 123,
+          "105": 435
+        },
+        "animations": 7
+      }
+    },
+    {
+      "file": "return-mid.png",
+      "requested": 115,
+      "window": [
+        122,
+        139
+      ],
+      "state": {
+        "order": "101,102,103,104,105",
+        "priority": "",
+        "focus": "104",
+        "focusVisible": false,
+        "status": "当前按工单编号巡检",
+        "positions": {
+          "101": 142,
+          "102": 224.2,
+          "103": 309.3,
+          "104": 195.5,
+          "105": 435
+        },
+        "animations": 7
+      }
+    },
+    {
+      "file": "return-end.png",
+      "requested": 740,
+      "window": [
+        744,
+        760
+      ],
+      "state": {
+        "order": "101,102,103,104,105",
+        "priority": "",
+        "focus": "104",
+        "focusVisible": false,
+        "status": "当前按工单编号巡检",
+        "positions": {
+          "101": 123,
+          "102": 201,
+          "103": 279,
+          "104": 357,
+          "105": 435
+        },
+        "animations": 0
+      }
+    },
+    {
+      "file": "phone.png",
+      "requested": null,
+      "window": null,
+      "state": {
+        "order": "101,102,103,104,105",
+        "priority": "",
+        "focus": "105",
+        "focusVisible": false,
+        "status": "当前按工单编号巡检",
+        "positions": {
+          "101": 112,
+          "102": 190,
+          "103": 268,
+          "104": 346,
+          "105": 424
+        },
+        "animations": 0
+      }
+    },
+    {
+      "file": "reduced.png",
+      "requested": null,
+      "window": null,
+      "state": {
+        "order": "104,101,102,103,105",
+        "priority": "104",
+        "focus": "104",
+        "focusVisible": false,
+        "status": "当前优先 104 清点对讲机",
+        "positions": {
+          "101": 201,
+          "102": 279,
+          "103": 357,
+          "104": 123,
+          "105": 435
+        },
+        "animations": 0
+      }
+    }
+  ],
+  "errors": [],
+  "rapidTimesMs": [
+    0,
+    74.80000001192093,
+    152.40000000596046,
+    215
+  ]
+}

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>闭馆巡检</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, sans-serif;
+      color: #212626;
+      background: #efeee9;
+    }
+
+    body { margin: 0; }
+
+    main {
+      width: min(100% - 32px, 640px);
+      margin: 36px auto;
+    }
+
+    h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); }
+    #queue-status { margin: 8px 0 18px; color: #48504e; }
+
+    #work-orders {
+      display: grid;
+      gap: 8px;
+      isolation: isolate;
+      overflow: clip;
+      margin: -7px -10px;
+      padding: 7px 10px;
+      list-style: none;
+    }
+
+    .order {
+      --order-border: #a5aca8;
+      --crossing-inset: 50px;
+      display: grid;
+      grid-template-columns: 60px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 9px 13px;
+      position: relative;
+    }
+
+    .order[data-priority] { --order-border: #264e40; }
+    .order[data-travel] { z-index: 1; }
+    .order > div, .order > button, .order-number { position: relative; }
+    .order h2 { margin: 0; font-size: 1rem; }
+    .order small { color: #48504e; }
+    .order-number { font-weight: 650; font-variant-numeric: tabular-nums; }
+
+    .order-face, .order-ink {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .order-face {
+      inset: 0;
+      border: 1px solid var(--order-border);
+      background: #fffefa;
+    }
+
+    .order[data-travel="up"] .order-face { transform-origin: center top; }
+    .order[data-travel="down"] .order-face { transform-origin: center bottom; }
+    .order[data-travel] .order-face { border-left: 3px solid #317257; }
+
+    .order-ink {
+      left: calc(var(--crossing-inset) - 5px);
+      width: 5px;
+      height: 24px;
+      opacity: 0;
+      background: #317257;
+      clip-path: polygon(18% 0, 51% 15%, 35% 83%, 0 72%, 73% 96%, 70% 52%, 100% 63%, 88% 100%, 55% 91%, 0 72%);
+    }
+
+    .order[data-travel="up"] .order-ink { bottom: 2px; transform-origin: center top; }
+    .order[data-travel="down"] .order-ink { top: 2px; transform-origin: center bottom; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .order-ink { display: none; }
+    }
+
+    button {
+      min-height: 44px;
+      padding: 7px 10px;
+      border: 1px solid #65716c;
+      border-radius: 3px;
+      color: inherit;
+      background: #f8f7f1;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button[aria-pressed="true"] { color: #fff; background: #264e40; }
+    button:focus-visible { outline: 3px solid #1662a2; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>闭馆巡检</h1>
+    <p id="queue-status" role="status">当前按工单编号巡检</p>
+    <ol id="work-orders" aria-label="工单队列">
+      <li class="order" data-order="101">
+        <small class="order-number">101</small>
+        <div><h2>核对门禁</h2><small>北侧入口</small></div>
+        <button type="button" aria-label="优先处理 101 核对门禁" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="102">
+        <small class="order-number">102</small>
+        <div><h2>查看配电箱指示</h2><small>一层机房</small></div>
+        <button type="button" aria-label="优先处理 102 查看配电箱指示" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="103">
+        <small class="order-number">103</small>
+        <div><h2>记录展区温度</h2><small>一层西厅</small></div>
+        <button type="button" aria-label="优先处理 103 记录展区温度" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="104">
+        <small class="order-number">104</small>
+        <div><h2>清点对讲机</h2><small>服务台</small></div>
+        <button type="button" aria-label="优先处理 104 清点对讲机" aria-pressed="false">优先</button>
+      </li>
+      <li class="order" data-order="105">
+        <small class="order-number">105</small>
+        <div><h2>检查窗锁</h2><small>二层走廊</small></div>
+        <button type="button" aria-label="优先处理 105 检查窗锁" aria-pressed="false">优先</button>
+      </li>
+    </ol>
+  </main>
+
+  <script>
+    const queue = document.querySelector('#work-orders');
+    const statusLine = document.querySelector('#queue-status');
+    const orders = Array.from(queue.children);
+    const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+    let reduceMotion = motionPreference.matches;
+    let priorityOrder = null;
+    let activeMotion = null;
+
+    for (const row of orders) {
+      const face = document.createElement('span');
+      face.className = 'order-face';
+      face.setAttribute('aria-hidden', 'true');
+      const ink = document.createElement('span');
+      ink.className = 'order-ink';
+      ink.setAttribute('aria-hidden', 'true');
+      row.prepend(face, ink);
+    }
+
+    function stopMotion() {
+      if (!activeMotion) return;
+      const { row, animations } = activeMotion;
+      activeMotion = null;
+      for (const animation of animations) animation.cancel();
+      row.removeAttribute('data-travel');
+    }
+
+    function pose(x, y, offset, easing = 'ease-out') {
+      return { transform: `translate(${x}px, ${y}px)`, offset, easing };
+    }
+
+    function animateReorder(order, previous) {
+      const moves = orders.map(row => {
+        const start = previous.get(row);
+        const end = row.getBoundingClientRect();
+        return { row, start, x: start.left - end.left, y: start.top - end.top };
+      });
+      const primary = moves.find(move => move.row === order);
+      const travel = Math.abs(primary.y);
+      const duration = travel > 1 ? Math.min(332, 242 + travel * 0.26) : 180;
+      const options = { duration, fill: 'both' };
+      const animations = [];
+      const shift = Math.sign(-primary.y);
+      const kickoff = shift * Math.min(4, travel * 0.08);
+
+      if (travel > 1) {
+        order.dataset.travel = shift < 0 ? 'up' : 'down';
+        animations.push(order.animate([
+          pose(primary.x, primary.y, 0),
+          pose(primary.x, primary.y - kickoff, 0.13, 'cubic-bezier(.62,0,.27,1)'),
+          pose(0, 0, 0.77),
+          pose(0, 0, 1),
+        ], options));
+
+        animations.push(order.querySelector('.order-face').animate([
+          { transform: 'none', left: '0px', offset: 0 },
+          { transform: 'scaleY(.94)', left: '0px', offset: 0.13 },
+          { transform: 'scaleY(1.06)', left: 'var(--crossing-inset)', offset: 0.23 },
+          { transform: 'scaleY(1.09)', left: 'var(--crossing-inset)', offset: 0.43 },
+          { transform: 'none', left: 'var(--crossing-inset)', offset: 0.65 },
+          { transform: 'scaleY(.94)', left: '0px', offset: 0.79, easing: 'ease-out' },
+          { transform: 'none', left: '0px', offset: 1 },
+        ], options));
+
+        // The moving card leaves the passed rows' number column exposed.
+        animations.push(order.querySelector('.order-number').animate([
+          { transform: 'none', offset: 0.13 },
+          { transform: 'translateX(40px)', offset: 0.23 },
+          { transform: 'translateX(40px)', offset: 0.65 },
+          { transform: 'none', offset: 0.79 },
+        ], options));
+
+        const inkTail = shift < 0 ? 15 : -15;
+        animations.push(order.querySelector('.order-ink').animate([
+          { transform: 'scaleY(.15)', opacity: 0, offset: 0.17 },
+          { transform: `translateY(${inkTail * .45}px) scaleY(.82)`, opacity: .85, offset: 0.36 },
+          { transform: `translateY(${inkTail}px) scaleY(.12)`, opacity: 0, offset: 0.68 },
+        ], options));
+      }
+
+      for (const move of moves) {
+        if ((move === primary && travel > 1) || Math.hypot(move.x, move.y) < 0.5) continue;
+        const pass = travel > 1
+          ? Math.min(1, Math.max(0, (move.start.top - primary.start.top) / -primary.y))
+          : 0;
+        // Rows nearer the departure point give way first, then return to their reading line.
+        animations.push(move.row.animate([
+          pose(move.x, move.y, 0),
+          pose(move.x, move.y, 0.06 + pass * 0.16, 'cubic-bezier(.27,.78,.36,1)'),
+          pose(4, move.y * 0.18, 0.57 + pass * 0.16),
+          pose(0, 0, 0.83 + pass * 0.16),
+        ], options));
+      }
+
+      if (animations.length === 0) return;
+      const batch = { row: order, animations };
+      activeMotion = batch;
+      Promise.allSettled(animations.map(animation => animation.finished)).then(() => {
+        if (activeMotion === batch) stopMotion();
+      });
+    }
+
+    function setPriority(order) {
+      const activeButton = document.activeElement;
+      const drawMotion = !reduceMotion && !document.hidden && typeof order.animate === 'function';
+      const previous = drawMotion
+        ? new Map(orders.map(row => [row, row.getBoundingClientRect()]))
+        : null;
+      stopMotion();
+
+      priorityOrder = priorityOrder === order ? null : order;
+      const nextOrder = priorityOrder
+        ? [priorityOrder, ...orders.filter(row => row !== priorityOrder)]
+        : orders;
+
+      nextOrder.forEach((row, index) => {
+        row.toggleAttribute('data-priority', row === priorityOrder);
+        row.querySelector('button').setAttribute('aria-pressed', row === priorityOrder);
+        const currentRow = queue.children[index];
+        if (row !== currentRow) queue.insertBefore(row, currentRow);
+      });
+
+      if (queue.contains(activeButton) && document.activeElement !== activeButton) {
+        activeButton.focus({ preventScroll: true });
+      }
+      statusLine.textContent = priorityOrder
+        ? `当前优先 ${priorityOrder.dataset.order} ${priorityOrder.querySelector('h2').textContent}`
+        : '当前按工单编号巡检';
+      if (previous) animateReorder(order, previous);
+    }
+
+    motionPreference.addEventListener('change', event => {
+      reduceMotion = event.matches;
+      stopMotion();
+    });
+    window.addEventListener('resize', stopMotion);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopMotion();
+    });
+
+    queue.addEventListener('click', event => {
+      const button = event.target.closest('button');
+      if (button) setPriority(button.closest('.order'));
+    });
+  </script>
+</body>
+</html>

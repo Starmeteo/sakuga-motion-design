@@ -1,0 +1,79 @@
+{
+  "case": "01",
+  "browser": "159.0.8154.6",
+  "checks": {
+    "input-and-repeat": {
+      "pass": true
+    },
+    "steady-touch": {
+      "pass": true
+    },
+    "preference-during-hold": {
+      "pass": false,
+      "reason": "active CSS/WAAPI animations\n+ actual - expected\n\n+ [\n+   {\n+     property: 'transform',\n+     target: 'stamp-label',\n+     type: 'CSSTransition'\n+   }\n+ ]\n- []\n"
+    },
+    "preference-during-committed-motion": {
+      "pass": false,
+      "reason": "active CSS/WAAPI animations\n+ actual - expected\n\n+ [\n+   {\n+     property: 'transform',\n+     target: 'stamp-label',\n+     type: 'CSSTransition'\n+   }\n+ ]\n- []\n"
+    },
+    "steady-touch-reduced-at-load": {
+      "pass": true
+    },
+    "motion-frames": {
+      "pass": true
+    }
+  },
+  "measurements": {},
+  "frames": [
+    {
+      "name": "mobile-touch",
+      "method": "natural clock"
+    },
+    {
+      "name": "reduced-held",
+      "method": "natural clock"
+    },
+    {
+      "name": "reduced-after-commit",
+      "method": "natural clock"
+    },
+    {
+      "name": "mobile-reduced",
+      "method": "natural clock"
+    },
+    {
+      "name": "idle",
+      "method": "natural clock"
+    },
+    {
+      "name": "held",
+      "method": "natural clock, held at least 92 ms"
+    },
+    {
+      "name": "commit-0",
+      "method": "CSS/WAAPI currentTime 0 ms for 3 animations"
+    },
+    {
+      "name": "commit-65",
+      "method": "CSS/WAAPI currentTime 65 ms for 3 animations"
+    },
+    {
+      "name": "commit-170",
+      "method": "CSS/WAAPI currentTime 170 ms for 3 animations"
+    },
+    {
+      "name": "commit-500",
+      "method": "CSS/WAAPI currentTime 500 ms for 3 animations"
+    },
+    {
+      "name": "undo-65",
+      "method": "CSS/WAAPI currentTime 65 ms for 1 animations"
+    },
+    {
+      "name": "undo-500",
+      "method": "CSS/WAAPI currentTime 500 ms for 1 animations"
+    }
+  ],
+  "errors": [],
+  "outsideRequests": []
+}

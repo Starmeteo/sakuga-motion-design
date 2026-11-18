@@ -1,0 +1,26 @@
+[
+  {
+    "file": "criteria.md",
+    "sha256": "a479f7d8644a999a2327dfe1d091906f901b87ebc589c5d798fc5f50caddf406"
+  },
+  {
+    "file": "01-mark.md",
+    "sha256": "3c12226ca263d9c7b42f6cde0b22ed16f54cf918ee9c4dfbcd5612c37bd86d45"
+  },
+  {
+    "file": "02-drag.md",
+    "sha256": "61206a184adcf88a7e37e0c77a6df0b4b525bfa017a7c09f391af3e795ad562f"
+  },
+  {
+    "file": "03-chapters.md",
+    "sha256": "774bb696c6d35b59dbf18460ea0b04659a068b1c7cdae2918774a678b22df455"
+  },
+  {
+    "file": "04-profiles.md",
+    "sha256": "2d6dc12132b78f4c959cdded1bf40a4f80bc27d3d996d1753fd6117da1f2c39d"
+  },
+  {
+    "file": "05-unrelated.md",
+    "sha256": "2fc43c226d621c300b7e38a65a9121304509360e0bb668e2c96f5d834b54d40f"
+  }
+]

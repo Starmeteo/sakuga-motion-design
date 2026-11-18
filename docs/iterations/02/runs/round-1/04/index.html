@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>落版 · 印刷工作坊</title>
+<style>
+  :root {
+    color-scheme: light;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    color: #27211d;
+    background: #eee8dc;
+    --serif: "Noto Serif SC", "Songti SC", SimSun, serif;
+    --wood: #eab072;
+    --face: #ac6244;
+    --proof: #9b432d;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  main { width: min(950px, 100% - 40px); margin: 0 auto; padding: clamp(26px, 8vh, 85px) 0 30px; }
+  header { border-top: 2px solid; padding: 13px 0 22px; }
+  .kicker { margin: 0 0 10px; font-size: .8rem; letter-spacing: .18em; }
+  h1 { font: 700 clamp(2.65rem, 7vw, 5.3rem)/1 var(--serif); letter-spacing: .055em; margin: 0; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1.85fr) minmax(215px, 1fr); gap: 14px; align-items: stretch; }
+  .stage {
+    background: var(--board, #dec6a1);
+    border: 1px solid var(--ink, #513127);
+    height: 329px;
+    position: relative;
+    overflow: clip;
+    isolation: isolate;
+  }
+  .stage::before {
+    content: ""; position: absolute; inset: 0; opacity: .21;
+    background: radial-gradient(var(--ink, #513127) .65px, transparent .65px) 0 0 / 5px 5px;
+  }
+  .stage::after {
+    content: ""; position: absolute; inset: 11px; border: 1px solid var(--ink, #513127);
+    opacity: .27; pointer-events: none;
+  }
+  .registration-line {
+    position: absolute; width: 1px; height: 51px; background: var(--ink, #513127); opacity: .36;
+    top: 26px; left: 50%;
+  }
+  .registration-line::after { content: ""; position: absolute; top: 0; left: -6px; width: 13px; height: 1px; background: inherit; }
+  .paper {
+    position: absolute; top: 188px; left: 50%; width: min(72%, 320px); height: 98px;
+    transform: translateX(-50%) skewX(-14deg); background: #fbf5e7; border: 1px solid var(--ink, #513127);
+    box-shadow: 3px 5px 0 var(--ink, #513127);
+  }
+  .paper::before, .paper::after {
+    content: ""; position: absolute; width: 12px; height: 12px; border-color: var(--ink, #513127);
+    border-style: solid; opacity: .6;
+  }
+  .paper::before { left: 11px; top: 11px; border-width: 1px 0 0 1px; }
+  .paper::after { right: 11px; bottom: 11px; border-width: 0 1px 1px 0; }
+  .print {
+    position: absolute; left: 50%; top: 198px; width: 102px; height: 52px; translate: -50% 0;
+    overflow: hidden; transform: skewX(-14deg) rotate(-2deg); color: var(--proof);
+    border: 1.5px solid currentColor; outline: 1px solid currentColor; outline-offset: 3px;
+    background: repeating-linear-gradient(132deg, currentColor 0 1px, transparent 1px 5px);
+    visibility: hidden;
+  }
+  .print::before {
+    content: ""; position: absolute; inset: 3px 12px; border-radius: 50%;
+    border: 1.5px solid currentColor; background: #fbf5e7;
+  }
+  .print::after {
+    content: ""; position: absolute; inset: 8px 29px;
+    background: currentColor;
+    clip-path: polygon(49% 0%, 61% 26%, 93% 12%, 77% 42%, 100% 57%, 73% 65%, 78% 95%, 54% 78%, 37% 100%, 31% 74%, 0% 76%, 19% 53%, 1% 34%, 32% 32%);
+  }
+  .stage.has-print .print { visibility: visible; }
+  .contact {
+    position: absolute; left: 50%; top: 202px; width: 0; height: 0;
+    pointer-events: none;
+  }
+  .spoke {
+    position: absolute; display: block; left: 0; top: 0;
+    background: var(--wood); border: 1px solid var(--ink, #513127);
+    clip-path: polygon(0 52%, 93% 0, 100% 41%, 67% 72%, 12% 100%);
+    transform-origin: 0 50%; visibility: hidden;
+  }
+  .plate {
+    position: absolute; top: 203px; bottom: auto; left: 50%;
+    width: 145px; height: 107px; margin: -107px 0 0 -72.5px; transform-origin: 50% 100%;
+    transform: translateY(-27px);
+  }
+  .block-front {
+    position: absolute; bottom: 0; width: 100%; height: 17px;
+    border: var(--stroke, 2px) solid var(--ink, #513127); border-radius: 0 0 4px 4px;
+    background: var(--face);
+    box-shadow: inset 0 -4px 0 var(--ink, #513127);
+  }
+  .block-top {
+    position: absolute; bottom: 14px; left: 3px; width: calc(100% - 6px); height: 25px;
+    transform: skewX(-14deg); border: var(--stroke, 2px) solid var(--ink, #513127);
+    border-radius: 3px; background: var(--wood);
+  }
+  .mount {
+    position: absolute; bottom: 26px; left: 50%; translate: -50% 0; width: 57px; height: 14px;
+    border: var(--stroke, 2px) solid var(--ink, #513127); border-radius: 50%;
+    background: var(--face);
+  }
+  .handle {
+    position: absolute; left: 50%; bottom: 29px; translate: -50% 0; width: 36px; height: 38px;
+    border: var(--stroke, 2px) solid var(--ink, #513127); border-radius: 5px 5px 13px 13px;
+    background: var(--wood); box-shadow: inset -8px 0 0 var(--face);
+  }
+  .grip {
+    position: absolute; left: 50%; bottom: 56px; translate: -50% 0; width: 70px; height: 35px;
+    border: var(--stroke, 2px) solid var(--ink, #513127); border-radius: 50% 50% 41% 41%;
+    background: var(--wood); box-shadow: inset -8px -7px 0 var(--face);
+  }
+  .grip::after {
+    content: ""; position: absolute; left: 12px; top: 7px; border-top: 2px solid #fbf5e7;
+    border-radius: 50%; width: 24px; height: 6px;
+  }
+  .controls {
+    padding: clamp(15px, 3.25vw, 31px);
+    background: #fbf5e7; border: 1px solid #27211d;
+    display: grid; align-content: space-between; gap: 26px;
+  }
+  fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  legend, .count-label { display: block; font-size: .85rem; margin-bottom: 8px; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+  .option { position: relative; }
+  .option input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .option span {
+    display: grid; min-height: 46px; place-items: center; border: 1px solid #52463b; font-size: .9rem;
+  }
+  .option input:checked + span { background: #27211d; color: #fbf5e7; font-weight: 700; }
+  .option input:focus-visible + span, button:focus-visible { outline: 2px solid #225e9d; outline-offset: 3px; }
+  .count { border-top: 1px solid #c4b9a8; padding-top: 14px; }
+  .count-value { display: block; font: 700 2.75rem/.95 Georgia, serif; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  button {
+    cursor: pointer; font: inherit; font-weight: 700; letter-spacing: .06em;
+    background: var(--proof, #9b432d); color: white; border: 1px solid #27211d;
+    min-height: 51px; box-shadow: 3px 3px 0 #27211d;
+  }
+  button:hover { filter: brightness(.9); }
+  button:active { box-shadow: 1px 1px 0 #27211d; }
+  @media (max-width: 600px) {
+    .layout { grid-template-columns: minmax(0,1fr); }
+    .stage { height: 307px; }
+    .controls { gap: 15px 16px; grid-template-columns: minmax(0,1fr) minmax(84px,.57fr); }
+    .count { border-top: 0; border-left: 1px solid #c4b9a8; padding: 0 0 0 15px; }
+    button { grid-column: 1 / -1; }
+  }
+</style>
+<main id="workshop">
+  <header>
+    <p class="kicker">印刷工作坊</p>
+    <h1>落版试印</h1>
+  </header>
+  <div class="layout">
+    <div id="stage" class="stage" role="img" aria-label="木柄印板与纸面">
+      <div class="registration-line"></div>
+      <div class="paper"></div>
+      <div id="print" class="print"></div>
+      <div id="contact" class="contact"></div>
+      <div id="plate" class="plate">
+        <div class="block-front"></div>
+        <div class="block-top"></div>
+        <div class="mount"></div>
+        <div class="handle"></div>
+        <div class="grip"></div>
+      </div>
+    </div>
+    <div class="controls">
+      <fieldset>
+        <legend>动作档位</legend>
+        <div class="options">
+          <label class="option"><input type="radio" name="profile" value="restrained" checked><span>克制</span></label>
+          <label class="option"><input type="radio" name="profile" value="expressive"><span>表现</span></label>
+        </div>
+      </fieldset>
+      <div class="count" role="status" aria-atomic="true">
+        <span class="count-label">印次</span>
+        <span class="count-value" id="count">0</span>
+      </div>
+      <button type="button" id="strike">落版</button>
+    </div>
+  </div>
+</main>
+<script>
+  const profiles = {
+    restrained: {
+      colors: { board: "#dec6a1", ink: "#513127", wood: "#eab072", face: "#ac6244", proof: "#9b432d" },
+      stroke: 2,
+      duration: 318, hitPhase: .33, lift: 49, squash: .88, widen: 1.08, rebound: 33,
+      spread: 20, spokes: 2
+    },
+    expressive: {
+      colors: { board: "#a9c5be", ink: "#223c39", wood: "#fae7a3", face: "#778e70", proof: "#32574a" },
+      stroke: 3,
+      duration: 465, hitPhase: .365, lift: 66, squash: .74, widen: 1.16, rebound: 39,
+      spread: 37, spokes: 6
+    }
+  };
+  const workshop = document.querySelector("#workshop");
+  const stage = document.querySelector("#stage");
+  const print = document.querySelector("#print");
+  const contact = document.querySelector("#contact");
+  const plate = document.querySelector("#plate");
+  const countLabel = document.querySelector("#count");
+  const options = [...document.querySelectorAll("input[name=profile]")];
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const pose = (y, x = 1, height = 1) => `translateY(${y}px) scale(${x}, ${height})`;
+  const rest = pose(-27);
+  const directions = [166, 14, 203, -23, 148, 32];
+  let activeProfile = profiles[options.find(option => option.checked).value];
+  let batch = [];
+  let count = 0;
+
+  function settle() {
+    batch.forEach(animation => animation.cancel());
+    batch = [];
+    contact.replaceChildren();
+    stage.classList.toggle("has-print", count > 0);
+  }
+
+  function applyProfile(profile) {
+    settle();
+    activeProfile = profile;
+    for (const [name, value] of Object.entries(profile.colors)) workshop.style.setProperty(`--${name}`, value);
+    workshop.style.setProperty("--stroke", `${profile.stroke}px`);
+  }
+
+  function playStrike(profile) {
+    const {duration, hitPhase, lift, squash, widen, rebound, spread, spokes} = profile;
+    const hitMs = duration * hitPhase;
+    stage.classList.add("has-print");
+    const animations = [
+      plate.animate([
+        {transform: rest, offset: 0, easing: "cubic-bezier(.15,.85,.35,1)"},
+        {transform: pose(-lift, .97, 1.025), offset: hitPhase * .42, easing: "cubic-bezier(.68,0,1,.68)"},
+        {transform: pose(-5, .965, 1.085), offset: hitPhase * .90},
+        {transform: pose(0, widen, squash), offset: hitPhase, easing: "cubic-bezier(.13,.75,.35,1)"},
+        {transform: pose(-rebound, .99, 1.015), offset: hitPhase + .32, easing: "ease-out"},
+        {transform: rest, offset: 1}
+      ], duration)
+    ];
+
+    // The newest impression and all contact wedges share the compression instant.
+    animations.push(print.animate([
+      {visibility: "hidden", offset: 0, easing: "steps(1,end)"},
+      {visibility: "visible", offset: 1}
+    ], {duration: hitMs, fill: "none"}));
+
+    for (const [index, angle] of directions.slice(0, spokes).entries()) {
+      const mark = document.createElement("i");
+      const reach = spread - 3 * (index % 3);
+      const side = index % 2 === 0 ? -1 : 1;
+      mark.className = "spoke";
+      mark.style.width = `${reach}px`;
+      mark.style.height = `${index < 2 ? 8 : 5}px`;
+      contact.append(mark);
+      animations.push(mark.animate([
+        {visibility: "visible", transform: `translateX(${side * 65}px) rotate(${angle}deg) scale(.56)`, offset: 0},
+        {visibility: "visible", transform: `translateX(${side * 78}px) rotate(${angle}deg) scale(1)`, offset: .24, easing: "ease-out"},
+        {visibility: "visible", transform: `translateX(${side * 94}px) rotate(${angle}deg) scale(.04)`, offset: 1}
+      ], {delay: hitMs, duration: (duration - hitMs) * .86}));
+    }
+    batch = animations;
+    animations[0].finished.then(() => {
+      if (batch === animations) settle();
+    }, () => {});
+  }
+
+  document.querySelector("#strike").addEventListener("click", () => {
+    settle();
+    count += 1;
+    countLabel.textContent = String(count);
+    if (reducedMotion.matches) {
+      stage.classList.add("has-print");
+      return;
+    }
+    playStrike(activeProfile);
+  });
+
+  for (const option of options) {
+    option.addEventListener("change", () => applyProfile(profiles[option.value]));
+  }
+  reducedMotion.addEventListener("change", settle);
+  window.addEventListener("resize", settle);
+  window.addEventListener("pagehide", settle);
+  applyProfile(activeProfile);
+</script>
+</html>

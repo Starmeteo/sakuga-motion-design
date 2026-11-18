@@ -1,0 +1,1 @@
+CHROMIUM PASS: 880px mouse slow / fast / hold / reverse / Escape / fast drop / repeated control / arrows; 390px DPR2 touch cancel / tap / live reduced-motion change and same gesture completion.

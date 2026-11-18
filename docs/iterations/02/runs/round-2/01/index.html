@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>校样</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --desk: #efe6d5;
+      --paper: #fbf6ec;
+      --ink: #36251f;
+      --muted: #6e5a4f;
+      --rule: #d6c4ae;
+      --seal: #9e3020;
+      --seal-edge: #752519;
+      --seal-light: #fae5d8;
+      --focus: #2c5c69;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      padding: 24px 16px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      font-family: system-ui, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 1px 1px, #896e4d24 1px, transparent 1.1px) 0 0 / 21px 21px,
+        var(--desk);
+    }
+
+    .proof {
+      width: min(100%, 34rem);
+      padding: 0 clamp(25px, 7vw, 39px);
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      box-shadow:
+        0 4px 0 -1px #e4d3b9,
+        0 5px 0 -1px #cab69a,
+        0 20px 44px -16px #69432240;
+    }
+
+    .sheet-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 32px 0 20px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Songti SC", SimSun, "Noto Serif CJK SC", serif;
+      font-size: clamp(2.1rem, 8vw, 2.65rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: .07em;
+    }
+
+    .register {
+      position: relative;
+      width: 26px;
+      height: 26px;
+      margin-right: 1px;
+      border: 1px solid #ae8d73;
+      border-radius: 50%;
+      background:
+        linear-gradient(#ae8d73, #ae8d73) center / 1px 12px no-repeat,
+        linear-gradient(#ae8d73, #ae8d73) center / 12px 1px no-repeat;
+    }
+
+    .register::after {
+      position: absolute;
+      inset: 4px;
+      content: "";
+      border: 1px dotted #ae8d73;
+      border-radius: inherit;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 17px clamp(25px, 8.25vw, 36px);
+      padding: 32px 0 37px;
+    }
+
+    .stamp {
+      position: relative;
+      isolation: isolate;
+      display: inline-grid;
+      place-items: center;
+      min-width: min(100%, 11.1rem);
+      min-height: 60px;
+      padding: 16px 18px 14px;
+      border: 0;
+      border-radius: 5px;
+      color: var(--seal-edge);
+      background: transparent;
+      font: inherit;
+      font-size: 1.1rem;
+      font-weight: 750;
+      white-space: nowrap;
+      cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .stamp:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 5px;
+    }
+
+    .stamp-face {
+      position: absolute;
+      z-index: -1;
+      inset: 0 0 4px;
+      border: 2px solid var(--seal);
+      border-radius: 5px;
+      background: var(--seal-light);
+      box-shadow: 0 4px var(--seal-edge), inset 0 0 0 2px #fbf3e9;
+      transform-origin: 50% 100%;
+    }
+
+    .stamp:hover .stamp-face {
+      background: #f8d9c9;
+    }
+
+    .stamp[aria-checked="true"] {
+      color: #fff8ec;
+    }
+
+    .stamp[aria-checked="true"] .stamp-face {
+      background: var(--seal);
+      box-shadow: 0 4px var(--seal-edge), inset 0 0 0 2px #d48a71;
+    }
+
+    .stamp[aria-checked="true"]:hover .stamp-face {
+      background: #922d20;
+    }
+
+    .stamp-label, .stamp-face, .contact {
+      pointer-events: none;
+    }
+
+    .stamp-label {
+      position: relative;
+      z-index: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.35;
+    }
+
+    .stamp-icon {
+      position: relative;
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      background: linear-gradient(currentColor, currentColor) center 14px / 14px 2px no-repeat;
+    }
+
+    .stamp-icon::before,
+    .stamp-icon::after {
+      position: absolute;
+      left: 50%;
+      content: "";
+      border: 1.5px solid currentColor;
+      transform: translateX(-50%);
+    }
+
+    .stamp-icon::before {
+      top: 1px;
+      width: 7px;
+      height: 8px;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .stamp-icon::after {
+      top: 8px;
+      width: 14px;
+      height: 4px;
+      border-radius: 3px 3px 1px 1px;
+    }
+
+    .contact {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      opacity: 0;
+      transform-origin: 50% 100%;
+    }
+
+    .ink-wedge {
+      position: absolute;
+      width: 24px;
+      height: 7px;
+      background: var(--seal);
+      clip-path: polygon(0 46%, 100% 0, 89% 100%);
+    }
+
+    .ink-wedge:nth-child(1) {
+      left: -17px;
+      bottom: 11px;
+      transform: rotate(20deg);
+    }
+
+    .ink-wedge:nth-child(2) {
+      left: -15px;
+      bottom: -1px;
+      width: 20px;
+      height: 5px;
+      transform: rotate(-9deg);
+    }
+
+    .ink-wedge:nth-child(3) {
+      right: -17px;
+      bottom: 11px;
+      transform: scaleX(-1) rotate(17deg);
+    }
+
+    .ink-wedge:nth-child(4) {
+      right: -13px;
+      bottom: -2px;
+      width: 18px;
+      height: 5px;
+      transform: scaleX(-1) rotate(-12deg);
+    }
+
+    .state {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 7px 10px;
+      border: 1px dashed #ac9785;
+      border-radius: 4px;
+      color: var(--muted);
+      background: var(--paper);
+      font-size: .95rem;
+      font-weight: 650;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .state-symbol {
+      width: 10px;
+      height: 10px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .stamp[aria-checked="true"] + .state {
+      border-style: solid;
+      border-color: #ca9e8d;
+      color: var(--seal-edge);
+      background: #f8e8dc;
+    }
+
+    .stamp[aria-checked="true"] + .state .state-symbol {
+      background: currentColor;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .stamp-face {
+        transform: none !important;
+      }
+
+      .contact {
+        display: none;
+      }
+    }
+
+    @media (forced-colors: active) {
+      .stamp {
+        color: ButtonText;
+      }
+
+      .stamp[aria-checked="true"] {
+        forced-color-adjust: none;
+        color: HighlightText;
+      }
+
+      .stamp[aria-checked="true"] .stamp-face {
+        color: HighlightText;
+        background: Highlight;
+        border-color: Highlight;
+        box-shadow: none;
+      }
+
+      .stamp:focus-visible {
+        outline-color: Highlight;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="proof">
+    <header class="sheet-heading">
+      <h1>校样</h1>
+      <span class="register" aria-hidden="true"></span>
+    </header>
+    <div class="controls">
+      <button class="stamp" type="button" role="switch" aria-checked="false">
+        <span class="contact" aria-hidden="true">
+          <i class="ink-wedge"></i><i class="ink-wedge"></i><i class="ink-wedge"></i><i class="ink-wedge"></i>
+        </span>
+        <span class="stamp-face" aria-hidden="true"></span>
+        <span class="stamp-label"><i class="stamp-icon" aria-hidden="true"></i>标记校样</span>
+      </button>
+      <p class="state"><span class="state-symbol" aria-hidden="true"></span><span class="state-text">待校</span></p>
+    </div>
+  </main>
+  <script>
+    const stamp = document.querySelector('.stamp');
+    const face = stamp.querySelector('.stamp-face');
+    const contact = stamp.querySelector('.contact');
+    const stateText = document.querySelector('.state-text');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+
+    let pressAnimation = null;
+    let releaseAnimations = [];
+    let pointer = null;
+    let spaceHeld = false;
+
+    function clearPress() {
+      pressAnimation?.cancel();
+      pressAnimation = null;
+    }
+
+    function clearMotion() {
+      clearPress();
+      for (const animation of releaseAnimations) {
+        animation.cancel();
+      }
+      releaseAnimations = [];
+    }
+
+    function windUp() {
+      clearMotion();
+      if (reducedMotion.matches) return;
+
+      pressAnimation = face.animate([
+        { transform: 'none', easing: 'cubic-bezier(.18, .85, .35, 1)' },
+        { transform: 'translateY(2px) scale(1.024, .92)', offset: .39, easing: 'ease-out' },
+        { transform: 'translateY(4px) scale(1.052, .79)' }
+      ], { duration: 205, fill: 'forwards' });
+    }
+
+    function strike() {
+      releaseAnimations = [
+        face.animate([
+          { transform: 'translateY(-3px) scale(.995, 1.035)', easing: 'ease-in' },
+          { transform: 'translateY(4px) scale(1.078, .76)', offset: .12 },
+          { transform: 'translateY(4px) scale(1.068, .79)', offset: .25, easing: 'ease-out' },
+          { transform: 'translateY(-2px) scale(.991, 1.04)', offset: .58, easing: 'ease-out' },
+          { transform: 'none' }
+        ], 245),
+        contact.animate([
+          { opacity: 0, transform: 'scale(.95, .45)' },
+          { opacity: 1, transform: 'scale(1.02, 1)', offset: .16 },
+          { opacity: .88, transform: 'scale(1.06, .85)', offset: .45, easing: 'ease-out' },
+          { opacity: 0, transform: 'scale(1.10, .04)' }
+        ], { duration: 224, delay: 26 })
+      ];
+    }
+
+    function lift() {
+      releaseAnimations = [face.animate([
+        { transform: 'translateY(2px) scale(1.02, .92)', easing: 'ease-out' },
+        { transform: 'translateY(-1px) scale(1, 1.015)', offset: .47, easing: 'ease-out' },
+        { transform: 'none' }
+      ], 155)];
+    }
+
+    function isInsideStamp(event) {
+      const bounds = stamp.getBoundingClientRect();
+      return event.clientX >= bounds.left && event.clientX < bounds.right &&
+        event.clientY >= bounds.top && event.clientY < bounds.bottom;
+    }
+
+    function updatePointer(inside) {
+      if (pointer.inside === inside) return;
+      pointer.inside = inside;
+      if (inside) {
+        windUp();
+      } else {
+        clearPress();
+      }
+    }
+
+    function endPointer(event) {
+      if (event.pointerId !== pointer?.id) return;
+      pointer = null;
+      clearPress();
+    }
+
+    stamp.addEventListener('pointerdown', (event) => {
+      if (!event.isPrimary || event.button !== 0) return;
+      pointer = { id: event.pointerId, inside: true };
+      windUp();
+    });
+
+    stamp.addEventListener('pointerleave', (event) => {
+      if (event.pointerId === pointer?.id) updatePointer(false);
+    });
+
+    window.addEventListener('pointermove', (event) => {
+      if (event.pointerId === pointer?.id) updatePointer(isInsideStamp(event));
+    });
+
+    window.addEventListener('pointerup', endPointer);
+    window.addEventListener('pointercancel', endPointer);
+    stamp.addEventListener('lostpointercapture', endPointer);
+
+    stamp.addEventListener('keydown', (event) => {
+      if (event.key === ' ' && !event.repeat) {
+        spaceHeld = true;
+        windUp();
+      }
+    });
+
+    stamp.addEventListener('keyup', (event) => {
+      if (event.key === ' ' && spaceHeld) {
+        spaceHeld = false;
+        clearPress();
+      }
+    });
+
+    function resetInput() {
+      pointer = null;
+      spaceHeld = false;
+      clearPress();
+    }
+
+    stamp.addEventListener('blur', resetInput);
+    window.addEventListener('blur', resetInput);
+    reducedMotion.addEventListener('change', clearMotion);
+
+    stamp.addEventListener('click', (event) => {
+      // Touch can capture the pointer, including a release outside the hit area.
+      if (event.detail > 0 && !isInsideStamp(event)) return;
+
+      const checked = stamp.getAttribute('aria-checked') === 'false';
+      stamp.setAttribute('aria-checked', String(checked));
+      stateText.textContent = checked ? '已校' : '待校';
+
+      clearMotion();
+      if (reducedMotion.matches) return;
+      if (checked) {
+        strike();
+      } else {
+        lift();
+      }
+    });
+  </script>
+</body>
+</html>

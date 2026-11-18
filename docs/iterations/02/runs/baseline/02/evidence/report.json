@@ -1,0 +1,162 @@
+{
+  "case": "02",
+  "browser": "159.0.8154.6",
+  "checks": {
+    "pointer-speed-direction-and-cancel": {
+      "pass": true
+    },
+    "keyboard-and-click": {
+      "pass": true
+    },
+    "touch-and-touchcancel": {
+      "pass": true
+    },
+    "reduced-at-load-and-dynamic": {
+      "pass": true
+    }
+  },
+  "measurements": {
+    "pointer": {
+      "slow-up": [
+        {
+          "y": 319,
+          "height": 101,
+          "transform": "none"
+        },
+        {
+          "y": 318.9,
+          "height": 103.1,
+          "transform": "matrix(0.990648, 0, 0, 1.02067, 0, 0)"
+        },
+        {
+          "y": 335.2,
+          "height": 24.5,
+          "transform": "none"
+        },
+        {
+          "y": 341.3,
+          "height": 78.6,
+          "transform": "none"
+        },
+        {
+          "y": 346.4,
+          "height": 73.5,
+          "transform": "none"
+        }
+      ],
+      "fast-down": [
+        {
+          "y": 571.5,
+          "height": 101,
+          "transform": "none"
+        },
+        {
+          "y": 531.6,
+          "height": 143.4,
+          "transform": "matrix(0.81, 0, 0, 1.42, 0, 0)"
+        },
+        {
+          "y": 554.3,
+          "height": 34.1,
+          "transform": "none"
+        },
+        {
+          "y": 562.9,
+          "height": 109.3,
+          "transform": "none"
+        },
+        {
+          "y": 570,
+          "height": 102.2,
+          "transform": "none"
+        }
+      ],
+      "reversed": [
+        {
+          "y": 571.5,
+          "height": 101,
+          "transform": "none"
+        },
+        {
+          "y": 531.6,
+          "height": 143.4,
+          "transform": "matrix(0.81, 0, 0, 1.42, 0, 0)"
+        },
+        {
+          "y": 554.3,
+          "height": 34.1,
+          "transform": "none"
+        },
+        {
+          "y": 562.9,
+          "height": 109.3,
+          "transform": "none"
+        },
+        {
+          "y": 570,
+          "height": 102.2,
+          "transform": "none"
+        }
+      ],
+      "held": [
+        {
+          "y": 571.5,
+          "height": 101,
+          "transform": "none"
+        },
+        {
+          "y": 571.5,
+          "height": 101,
+          "transform": "none"
+        },
+        {
+          "y": 587.5,
+          "height": 24,
+          "transform": "none"
+        },
+        {
+          "y": 593.5,
+          "height": 77,
+          "transform": "none"
+        },
+        {
+          "y": 598.5,
+          "height": 72,
+          "transform": "none"
+        }
+      ]
+    }
+  },
+  "frames": [
+    {
+      "name": "slow-up",
+      "method": "natural pointer, 12 samples, 56 ms added interval"
+    },
+    {
+      "name": "fast-down",
+      "method": "natural pointer, 5 samples, 0 ms added interval"
+    },
+    {
+      "name": "reverse-down",
+      "method": "natural clock"
+    },
+    {
+      "name": "held-350-release",
+      "method": "natural clock"
+    },
+    {
+      "name": "settled",
+      "method": "natural clock"
+    },
+    {
+      "name": "narrow-touch",
+      "method": "natural clock"
+    },
+    {
+      "name": "reduced-during-drag",
+      "method": "natural clock"
+    }
+  ],
+  "errors": [],
+  "outsideRequests": []
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "file": "acceptance.md",
+    "sha256": "79b5d197e7ca72aa09da7cb9c6dd4762ec476c13abec1b1bf3541519e3962ff6"
+  },
+  {
+    "file": "index.html",
+    "sha256": "a2a2837a645ce70a5da6385c6cfa7361bc79841d84bf8d3f254dc6e648cdedc6"
+  },
+  {
+    "file": "request.md",
+    "sha256": "d77aa85169a6e58aa75e77c5ae978a9962849d8b98c779f5bc8300f87ae65147"
+  }
+]

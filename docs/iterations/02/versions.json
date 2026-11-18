@@ -1,0 +1,94 @@
+[
+  {
+    "snapshot": "baseline",
+    "files": {
+      "agents/openai.yaml": "3f79a1ba154f8a2ee0a3f90578dde1ccace5ad9f92a4a963e7c6e2399030e7aa",
+      "assets/upstream/core.js": "f0518dd7d4dd1986eab2c9c76796421f4c827e91eac627f4c91a63c362c79419",
+      "assets/upstream/LICENSE": "056e3d84530a1353df8ccad533823e2fd3a8cd94bec7dac2342b1d33eb60d624",
+      "assets/upstream/look.mjs": "f5dd712b604095f594eb0af02b0a9577289d32ed26f3c008e638b2178e306981",
+      "assets/upstream/starter.html": "001435773ec70283703ad2613583c864fbf2d707d4f239c7dcea225489af4cfc",
+      "assets/web/index.html": "c978a9fef27e439f5bef10eb594adbc84fc6824200b7da25e5b3377dcf7d060a",
+      "assets/web/motion.js": "f104f7bac0454605321b381a1245cf852b32374ec819ec8636da7f52e7458636",
+      "assets/web/profiles.js": "8f91390ad4770e2cf0975703f490eb27947e1add937de9cd22b286f946a77eb2",
+      "assets/web/scene.js": "14d302f67d2164e3b1577b11ee0f8d72878e5ef85b687365cca25ded441aa165",
+      "assets/web/styles.css": "c9ee56f02d3ffa1f2b0c061928255c61d796d8778900eb8baf44b9b6e48a6020",
+      "references/integration.md": "1db6d0f972fb01cf92b297c9814456ab9452d7b95f22f579d895999da0a2c7ce",
+      "references/motion-recipes.md": "a8ef24a1ab6d35ad0b96ad841eb7e2a4185cc55f11c195f03a91b08836192bea",
+      "references/profiles.md": "11f48d3dbd33af561fdad11d61dd45cde1f44264ae4a1338ff243efad2f8c366",
+      "references/scenes.md": "7624b162f79a91cc917a66f8123a9697f508f2ddb48fdf9ebc51fc44a3ad2774",
+      "references/sources.md": "914a752b7fc442deec861ce3b588c245e4fa4d53dae26ae2e0a2697f83d78b52",
+      "references/verification.md": "fc52e34052f9f9703bb3b082e1ed0d410263d8a205efe0e4919fc6097072b029",
+      "references/visual-language.md": "ce2d86a223847b5034a0b3b683c90d34eaea0fb14148266f2f861d2924e47f61",
+      "SKILL.md": "7451fef9ad454c134c0ba1f8926ec51abc5669abdc9587e52d059704a004d912"
+    }
+  },
+  {
+    "snapshot": "candidate-1",
+    "files": {
+      "agents/openai.yaml": "3f79a1ba154f8a2ee0a3f90578dde1ccace5ad9f92a4a963e7c6e2399030e7aa",
+      "assets/upstream/core.js": "f0518dd7d4dd1986eab2c9c76796421f4c827e91eac627f4c91a63c362c79419",
+      "assets/upstream/LICENSE": "056e3d84530a1353df8ccad533823e2fd3a8cd94bec7dac2342b1d33eb60d624",
+      "assets/upstream/look.mjs": "f5dd712b604095f594eb0af02b0a9577289d32ed26f3c008e638b2178e306981",
+      "assets/upstream/starter.html": "001435773ec70283703ad2613583c864fbf2d707d4f239c7dcea225489af4cfc",
+      "assets/web/index.html": "c978a9fef27e439f5bef10eb594adbc84fc6824200b7da25e5b3377dcf7d060a",
+      "assets/web/motion.js": "f104f7bac0454605321b381a1245cf852b32374ec819ec8636da7f52e7458636",
+      "assets/web/profiles.js": "8f91390ad4770e2cf0975703f490eb27947e1add937de9cd22b286f946a77eb2",
+      "assets/web/scene.js": "14d302f67d2164e3b1577b11ee0f8d72878e5ef85b687365cca25ded441aa165",
+      "assets/web/styles.css": "c9ee56f02d3ffa1f2b0c061928255c61d796d8778900eb8baf44b9b6e48a6020",
+      "references/integration.md": "1db6d0f972fb01cf92b297c9814456ab9452d7b95f22f579d895999da0a2c7ce",
+      "references/motion-recipes.md": "a8ef24a1ab6d35ad0b96ad841eb7e2a4185cc55f11c195f03a91b08836192bea",
+      "references/profiles.md": "1f2865f35e64807ff247731d4ca9075263bbc7bced6125623416b4b5fb1b7f79",
+      "references/scenes.md": "76a71e2aeb2e3c89a6e521e6c9f92ba6accff6d8593618a3d4d80ff74b7862c2",
+      "references/sources.md": "914a752b7fc442deec861ce3b588c245e4fa4d53dae26ae2e0a2697f83d78b52",
+      "references/verification.md": "fc52e34052f9f9703bb3b082e1ed0d410263d8a205efe0e4919fc6097072b029",
+      "references/visual-language.md": "ce2d86a223847b5034a0b3b683c90d34eaea0fb14148266f2f861d2924e47f61",
+      "SKILL.md": "7375e68d6711db1754c38e5400aee03d5ece7c2644d008356639b13c09a0f4ea"
+    }
+  },
+  {
+    "snapshot": "candidate-2",
+    "files": {
+      "agents/openai.yaml": "3f79a1ba154f8a2ee0a3f90578dde1ccace5ad9f92a4a963e7c6e2399030e7aa",
+      "assets/upstream/core.js": "f0518dd7d4dd1986eab2c9c76796421f4c827e91eac627f4c91a63c362c79419",
+      "assets/upstream/LICENSE": "056e3d84530a1353df8ccad533823e2fd3a8cd94bec7dac2342b1d33eb60d624",
+      "assets/upstream/look.mjs": "f5dd712b604095f594eb0af02b0a9577289d32ed26f3c008e638b2178e306981",
+      "assets/upstream/starter.html": "001435773ec70283703ad2613583c864fbf2d707d4f239c7dcea225489af4cfc",
+      "assets/web/index.html": "c978a9fef27e439f5bef10eb594adbc84fc6824200b7da25e5b3377dcf7d060a",
+      "assets/web/motion.js": "f104f7bac0454605321b381a1245cf852b32374ec819ec8636da7f52e7458636",
+      "assets/web/profiles.js": "8f91390ad4770e2cf0975703f490eb27947e1add937de9cd22b286f946a77eb2",
+      "assets/web/scene.js": "14d302f67d2164e3b1577b11ee0f8d72878e5ef85b687365cca25ded441aa165",
+      "assets/web/styles.css": "c9ee56f02d3ffa1f2b0c061928255c61d796d8778900eb8baf44b9b6e48a6020",
+      "references/integration.md": "1db6d0f972fb01cf92b297c9814456ab9452d7b95f22f579d895999da0a2c7ce",
+      "references/motion-recipes.md": "ce5ea355dc0d73d283aa0c282b01112c7ccc5c7c8492760f9c07e4fb4ab4b992",
+      "references/profiles.md": "1f2865f35e64807ff247731d4ca9075263bbc7bced6125623416b4b5fb1b7f79",
+      "references/scenes.md": "76a71e2aeb2e3c89a6e521e6c9f92ba6accff6d8593618a3d4d80ff74b7862c2",
+      "references/sources.md": "914a752b7fc442deec861ce3b588c245e4fa4d53dae26ae2e0a2697f83d78b52",
+      "references/verification.md": "b7e4b6e1dc25d45daf84ef1436e4a84f6738768cb1b3e629d006808790ce8384",
+      "references/visual-language.md": "ce2d86a223847b5034a0b3b683c90d34eaea0fb14148266f2f861d2924e47f61",
+      "SKILL.md": "7375e68d6711db1754c38e5400aee03d5ece7c2644d008356639b13c09a0f4ea"
+    }
+  },
+  {
+    "snapshot": "candidate-3",
+    "files": {
+      "agents/openai.yaml": "3f79a1ba154f8a2ee0a3f90578dde1ccace5ad9f92a4a963e7c6e2399030e7aa",
+      "assets/upstream/core.js": "f0518dd7d4dd1986eab2c9c76796421f4c827e91eac627f4c91a63c362c79419",
+      "assets/upstream/LICENSE": "056e3d84530a1353df8ccad533823e2fd3a8cd94bec7dac2342b1d33eb60d624",
+      "assets/upstream/look.mjs": "f5dd712b604095f594eb0af02b0a9577289d32ed26f3c008e638b2178e306981",
+      "assets/upstream/starter.html": "001435773ec70283703ad2613583c864fbf2d707d4f239c7dcea225489af4cfc",
+      "assets/web/index.html": "c978a9fef27e439f5bef10eb594adbc84fc6824200b7da25e5b3377dcf7d060a",
+      "assets/web/motion.js": "f104f7bac0454605321b381a1245cf852b32374ec819ec8636da7f52e7458636",
+      "assets/web/profiles.js": "8f91390ad4770e2cf0975703f490eb27947e1add937de9cd22b286f946a77eb2",
+      "assets/web/scene.js": "14d302f67d2164e3b1577b11ee0f8d72878e5ef85b687365cca25ded441aa165",
+      "assets/web/styles.css": "c9ee56f02d3ffa1f2b0c061928255c61d796d8778900eb8baf44b9b6e48a6020",
+      "references/integration.md": "1db6d0f972fb01cf92b297c9814456ab9452d7b95f22f579d895999da0a2c7ce",
+      "references/motion-recipes.md": "42b69973586575fed6d0ae99376c94c9cf0730d1e003b1a7e034028827a8f7e6",
+      "references/profiles.md": "1f2865f35e64807ff247731d4ca9075263bbc7bced6125623416b4b5fb1b7f79",
+      "references/scenes.md": "76a71e2aeb2e3c89a6e521e6c9f92ba6accff6d8593618a3d4d80ff74b7862c2",
+      "references/sources.md": "914a752b7fc442deec861ce3b588c245e4fa4d53dae26ae2e0a2697f83d78b52",
+      "references/verification.md": "b7e4b6e1dc25d45daf84ef1436e4a84f6738768cb1b3e629d006808790ce8384",
+      "references/visual-language.md": "ce2d86a223847b5034a0b3b683c90d34eaea0fb14148266f2f861d2924e47f61",
+      "SKILL.md": "7375e68d6711db1754c38e5400aee03d5ece7c2644d008356639b13c09a0f4ea"
+    }
+  }
+]

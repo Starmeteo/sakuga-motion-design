@@ -1,0 +1,219 @@
+{
+  "case": "02",
+  "browser": "159.0.8154.6",
+  "checks": {
+    "pointer-speed-direction-and-cancel": {
+      "pass": true
+    },
+    "keyboard-and-click": {
+      "pass": true
+    },
+    "touch-and-touchcancel": {
+      "pass": true
+    },
+    "reduced-at-load-and-dynamic": {
+      "pass": false,
+      "reason": "active CSS/WAAPI animations\n+ actual - expected\n\n+ [\n+   {\n+     property: undefined,\n+     target: 'ink-mark',\n+     type: 'Animation'\n+   },\n+   {\n+     property: undefined,\n+     target: 'ink-mark',\n+     type: 'Animation'\n+   }\n+ ]\n- []\n"
+    }
+  },
+  "measurements": {
+    "pointer": {
+      "slow-up": [
+        {
+          "y": 338.2,
+          "height": 91,
+          "transform": "matrix(1, 0, 0, 1, -32, -45.5)"
+        },
+        {
+          "y": 338.2,
+          "height": 92.7,
+          "transform": "matrix(0.986201, 0, 0, 1.0187, 0, 0)"
+        },
+        {
+          "y": 343.3,
+          "height": 82.5,
+          "transform": "none"
+        },
+        {
+          "y": 353.2,
+          "height": 12.1,
+          "transform": "none"
+        },
+        {
+          "y": 365.6,
+          "height": 25.6,
+          "transform": "none"
+        },
+        {
+          "y": 365.6,
+          "height": 25.6,
+          "transform": "none"
+        },
+        {
+          "y": 384.6,
+          "height": 32.2,
+          "transform": "none"
+        },
+        {
+          "y": 390.3,
+          "height": 17.3,
+          "transform": "none"
+        }
+      ],
+      "fast-down": [
+        {
+          "y": 586.2,
+          "height": 91,
+          "transform": "matrix(1, 0, 0, 1, -32, -45.5)"
+        },
+        {
+          "y": 549.1,
+          "height": 128.2,
+          "transform": "matrix(0.773513, 0, 0, 1.40835, 0, 0)"
+        },
+        {
+          "y": 556.1,
+          "height": 114.1,
+          "transform": "none"
+        },
+        {
+          "y": 569.8,
+          "height": 16.7,
+          "transform": "none"
+        },
+        {
+          "y": 586.9,
+          "height": 35.4,
+          "transform": "none"
+        },
+        {
+          "y": 586.9,
+          "height": 35.4,
+          "transform": "none"
+        },
+        {
+          "y": 613.1,
+          "height": 44.5,
+          "transform": "none"
+        },
+        {
+          "y": 621.1,
+          "height": 24,
+          "transform": "none"
+        }
+      ],
+      "reversed": [
+        {
+          "y": 586.2,
+          "height": 91,
+          "transform": "matrix(1, 0, 0, 1, -32, -45.5)"
+        },
+        {
+          "y": 542.5,
+          "height": 134.7,
+          "transform": "matrix(0.745253, 0, 0, 1.48, 0, 0)"
+        },
+        {
+          "y": 549.9,
+          "height": 119.9,
+          "transform": "none"
+        },
+        {
+          "y": 564.3,
+          "height": 17.6,
+          "transform": "none"
+        },
+        {
+          "y": 582.3,
+          "height": 37.2,
+          "transform": "none"
+        },
+        {
+          "y": 582.3,
+          "height": 37.2,
+          "transform": "none"
+        },
+        {
+          "y": 609.9,
+          "height": 46.8,
+          "transform": "none"
+        },
+        {
+          "y": 618.3,
+          "height": 25.2,
+          "transform": "none"
+        }
+      ],
+      "held": [
+        {
+          "y": 586.2,
+          "height": 91,
+          "transform": "matrix(1, 0, 0, 1, -32, -45.5)"
+        },
+        {
+          "y": 586.2,
+          "height": 91,
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "y": 591.2,
+          "height": 81,
+          "transform": "none"
+        },
+        {
+          "y": 600.9,
+          "height": 11.9,
+          "transform": "none"
+        },
+        {
+          "y": 613.1,
+          "height": 25.1,
+          "transform": "none"
+        },
+        {
+          "y": 613.1,
+          "height": 25.1,
+          "transform": "none"
+        },
+        {
+          "y": 631.7,
+          "height": 31.6,
+          "transform": "none"
+        },
+        {
+          "y": 637.4,
+          "height": 17,
+          "transform": "none"
+        }
+      ]
+    }
+  },
+  "frames": [
+    {
+      "name": "slow-up",
+      "method": "natural pointer, 12 samples, 56 ms added interval"
+    },
+    {
+      "name": "fast-down",
+      "method": "natural pointer, 5 samples, 0 ms added interval"
+    },
+    {
+      "name": "reverse-down",
+      "method": "natural clock"
+    },
+    {
+      "name": "held-350-release",
+      "method": "natural clock"
+    },
+    {
+      "name": "settled",
+      "method": "natural clock"
+    },
+    {
+      "name": "narrow-touch",
+      "method": "natural clock"
+    }
+  ],
+  "errors": [],
+  "outsideRequests": []
+}

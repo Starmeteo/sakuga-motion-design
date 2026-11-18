@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>画稿托位</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f1eee4;
+      --sheet: #fdfaf0;
+      --ink: #223330;
+      --muted: #465953;
+      --rule: #bbbfb0;
+      --teal: #216055;
+      font-family: system-ui, "Microsoft YaHei", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: clamp(14px, 4vw, 24px);
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    main {
+      width: min(100%, 600px);
+      padding: clamp(18px, 6vw, 36px);
+      border: 1px solid var(--rule);
+      border-top: 5px solid var(--ink);
+      background: var(--sheet);
+      box-shadow: 5px 5px 0 #dfdfd1;
+    }
+
+    h1 {
+      margin: 0;
+      font: 700 clamp(26px, 7vw, 41px)/1.2 "Songti SC", SimSun, serif;
+    }
+
+    .intro {
+      margin: .6rem 0 1.2rem;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    .stage {
+      --art-x: 66%;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border: 1px solid var(--rule);
+    }
+
+    .slots { display: grid; grid-template-rows: repeat(3, 126px); }
+    .slot {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-inline: clamp(12px, 4vw, 23px);
+    }
+    .slot + .slot { border-top: 1px solid var(--rule); }
+    .slot.is-selected { background: #e8eee2; }
+    .slot.is-target { background: #dceadd; }
+
+    .slot button {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      min-width: 59px;
+      min-height: 43px;
+      padding: 0 9px;
+      background: var(--sheet);
+      color: var(--ink);
+      border: 1px solid var(--ink);
+      border-radius: 3px;
+      font: inherit;
+      font-weight: 680;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .slot button[aria-pressed="true"] { background: var(--teal); color: white; }
+    .slot button:focus-visible, .draft:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 4px;
+    }
+
+    .landing {
+      position: absolute;
+      left: var(--art-x);
+      top: 50%;
+      width: 92px;
+      height: 110px;
+      translate: -50% -50%;
+      border: 1px dashed #a4ad9e;
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .is-target .landing { border: 1px solid var(--teal); }
+    .draft {
+      position: absolute;
+      z-index: 3;
+      left: var(--art-x);
+      top: 50%;
+      width: 78px;
+      height: 101px;
+      translate: -50% -50%;
+      touch-action: none;
+      cursor: grab;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+    .draft.is-dragging { cursor: grabbing; }
+    .art {
+      position: absolute;
+      inset: 0;
+      background: #e7e6cd;
+      border: 2px solid var(--ink);
+      box-shadow: 3px 3px 0 #435746;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .art i { position: absolute; display: block; }
+    .sun {
+      width: 24px;
+      height: 24px;
+      left: 13px;
+      top: 14px;
+      background: #c77841;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+    }
+    .slope {
+      inset: 20px 0 0;
+      background: #326453;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 78%, 38% 58%);
+    }
+    .slope::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #203b32;
+      clip-path: polygon(100% 0, 100% 100%, 23% 100%, 55% 72%, 78% 70%);
+    }
+    .river {
+      inset: 25px 0 0;
+      background: #f5ecd1;
+      clip-path: polygon(100% 49%, 59% 66%, 86% 81%, 57% 93%, 48% 100%, 22% 100%, 71% 81%, 50% 67%);
+    }
+    .trail {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      pointer-events: none;
+    }
+    .trail i {
+      position: absolute;
+      width: var(--width);
+      height: var(--length);
+      background: var(--ink);
+      clip-path: polygon(27% 5%, 100% 0, 68% 89%, 7% 100%);
+    }
+
+    .location { margin: 15px 0 0; color: var(--muted); font-size: .9rem; }
+    output { color: var(--teal); font-weight: 730; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .art { transform: none !important; }
+      .trail { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>画稿托位</h1>
+    <p class="intro" id="help">拖动画稿或点选托位。聚焦画稿后可用 ↑ ↓ 移动，按 Esc 取消拖动。</p>
+    <div class="stage">
+      <div class="slots" role="group" aria-label="托位">
+        <div class="slot">
+          <button type="button" aria-pressed="false">上</button>
+          <div class="landing" aria-hidden="true"></div>
+        </div>
+        <div class="slot is-selected">
+          <button type="button" aria-pressed="true">中</button>
+          <div class="landing" aria-hidden="true"></div>
+        </div>
+        <div class="slot">
+          <button type="button" aria-pressed="false">下</button>
+          <div class="landing" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="trail" aria-hidden="true"></div>
+      <div class="draft" role="slider" tabindex="0" aria-label="竖向画稿"
+        aria-describedby="help" aria-orientation="vertical" aria-valuemin="0"
+        aria-valuemax="2" aria-valuenow="1" aria-valuetext="中">
+        <div class="art" aria-hidden="true">
+          <i class="sun"></i><i class="slope"></i><i class="river"></i>
+        </div>
+      </div>
+    </div>
+    <p class="location">当前位置　<output>中</output></p>
+  </main>
+  <script>
+    const stage = document.querySelector('.stage');
+    const draft = document.querySelector('.draft');
+    const art = document.querySelector('.art');
+    const trail = document.querySelector('.trail');
+    const slots = [...document.querySelectorAll('.slot')];
+    const buttons = slots.map(slot => slot.querySelector('button'));
+    const anchors = slots.map(slot => slot.querySelector('.landing'));
+    const output = document.querySelector('output');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const names = ['上', '中', '下'];
+
+    const inkThreshold = 430;
+    const releaseThreshold = 690;
+    const speedLimit = 1400;
+    let committed = 1;
+    let y;
+    let drag = null;
+    let frame = 0;
+    let seatEffect = null;
+    let marks = [];
+
+    const clamp = (value, lower, upper) => Math.max(lower, Math.min(value, upper));
+
+    function measures() {
+      const stageTop = stage.getBoundingClientRect().top + stage.clientTop;
+      const centers = anchors.map(anchor => {
+        const box = anchor.getBoundingClientRect();
+        return box.top - stageTop + box.height / 2;
+      });
+      const artX = anchors[0].offsetLeft;
+      return { stageTop, centers, artX };
+    }
+
+    function moveDraft(top) {
+      y = top;
+      draft.style.top = `${top}px`;
+    }
+
+    function nearest(centers, top) {
+      let best = 0;
+      for (let index = 1; index < centers.length; index += 1) {
+        if (Math.abs(centers[index] - top) < Math.abs(centers[best] - top)) best = index;
+      }
+      return best;
+    }
+
+    function preview(index) {
+      slots.forEach((slot, i) => slot.classList.toggle('is-target', i === index && i !== committed));
+    }
+
+    function commit(index) {
+      committed = index;
+      slots.forEach((slot, i) => slot.classList.toggle('is-selected', i === index));
+      buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+      draft.setAttribute('aria-valuenow', String(2 - index));
+      draft.setAttribute('aria-valuetext', names[index]);
+      if (output.value !== names[index]) output.value = names[index];
+      preview(null);
+      moveDraft(measures().centers[index]);
+    }
+
+    function stopVisuals() {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      seatEffect?.cancel();
+      seatEffect = null;
+      trail.replaceChildren();
+      marks = [];
+      art.style.transform = '';
+      art.style.transformOrigin = '';
+    }
+
+    function freshVelocity(now) {
+      const age = now - drag.lastMotion;
+      if (age > 155) return 0;
+      return drag.velocity * Math.exp(-Math.max(0, age - 24) / 36);
+    }
+
+    function addMark(x, top, length, width, direction, now) {
+      if (marks.length >= 12) marks.shift().node.remove();
+      const node = document.createElement('i');
+      node.style.left = `${x}px`;
+      node.style.top = `${top - length / 2}px`;
+      node.style.setProperty('--width', `${width}px`);
+      node.style.setProperty('--length', `${length}px`);
+      trail.append(node);
+      const mark = { node, direction, start: now };
+      marks.push(mark);
+      drawMark(mark, now);
+    }
+
+    function drawMark(mark, now) {
+      const age = clamp((now - mark.start) / 200, 0, 1);
+      mark.node.style.opacity = String(.88 * (1 - age * age));
+      mark.node.style.transform =
+        `translateY(${-mark.direction * 6 * age}px) scale(${1 - age * .75}, ${1 - age})`;
+      return age < 1;
+    }
+
+    function draw(now) {
+      frame = 0;
+      marks = marks.filter(mark => {
+        if (drawMark(mark, now)) return true;
+        mark.node.remove();
+        return false;
+      });
+      const speed = drag ? freshVelocity(now) : 0;
+      const stretch = clamp((Math.abs(speed) - 110) / 1050, 0, 1);
+      if (drag) {
+        art.style.transformOrigin = speed < 0 ? '50% 6%' : '50% 94%';
+        art.style.transform = stretch ?
+          `scale(${1 - .19 * stretch}, ${1 + .42 * stretch})` : '';
+      }
+      if (stretch || marks.length) scheduleDraw();
+    }
+
+    function scheduleDraw() {
+      if (!frame) frame = requestAnimationFrame(draw);
+    }
+
+    function releaseDrag() {
+      const pointerId = drag.pointerId;
+      drag = null;
+      draft.classList.remove('is-dragging');
+      if (draft.hasPointerCapture(pointerId)) draft.releasePointerCapture(pointerId);
+      stopVisuals();
+      preview(null);
+    }
+
+    function cancelDrag() {
+      if (!drag) return;
+      releaseDrag();
+      moveDraft(measures().centers[committed]);
+    }
+
+    draft.addEventListener('pointerdown', event => {
+      if (drag || !event.isPrimary || event.button !== 0) return;
+      event.preventDefault();
+      stopVisuals();
+      draft.focus({ preventScroll: true });
+      const { stageTop } = measures();
+      drag = {
+        pointerId: event.pointerId,
+        offset: event.clientY - stageTop - y,
+        sampleAt: performance.now(),
+        lastMotion: -Infinity,
+        lastInkAt: -Infinity,
+        velocity: 0,
+      };
+      draft.setPointerCapture(drag.pointerId);
+      draft.classList.add('is-dragging');
+    });
+
+    draft.addEventListener('pointermove', event => {
+      if (event.pointerId !== drag?.pointerId) return;
+      const { stageTop, centers, artX } = measures();
+      const previousY = y;
+      const candidate = clamp(event.clientY - stageTop - drag.offset, centers[0], centers[2]);
+      moveDraft(candidate);
+      preview(nearest(centers, y));
+      if (reduced.matches || Math.abs(y - previousY) < .5) return;
+
+      const now = performance.now();
+      const dt = Math.max(8, now - drag.sampleAt);
+      const raw = clamp((y - previousY) * 1000 / dt, -speedLimit, speedLimit);
+      const previousVelocity = freshVelocity(now);
+      const start = Math.sign(previousVelocity) === Math.sign(raw) ? previousVelocity : 0;
+      drag.velocity = start + (raw - start) * (1 - Math.exp(-dt / 23));
+      drag.sampleAt = now;
+      drag.lastMotion = now;
+
+      if (Math.abs(drag.velocity) >= inkThreshold && now - drag.lastInkAt >= 31) {
+        drag.lastInkAt = now;
+        const direction = Math.sign(drag.velocity);
+        const tail = previousY - direction * 43;
+        const strength = Math.abs(drag.velocity) / speedLimit;
+        addMark(artX - 31, tail - direction * 9, 15 + strength * 25, 4, direction, now);
+        addMark(artX + 23, tail, 10 + strength * 15, 3, direction, now);
+      }
+      scheduleDraw();
+    });
+
+    draft.addEventListener('pointerup', event => {
+      if (event.pointerId !== drag?.pointerId) return;
+      const { stageTop, centers, artX } = measures();
+      const top = clamp(event.clientY - stageTop - drag.offset, centers[0], centers[2]);
+      const target = nearest(centers, top);
+      const now = performance.now();
+      const speed = freshVelocity(now);
+      const strongLanding = target !== committed && !reduced.matches &&
+        now - drag.lastMotion <= 65 && Math.abs(speed) >= releaseThreshold;
+      releaseDrag();
+      commit(target);
+      if (!strongLanding) return;
+      const direction = Math.sign(speed);
+      art.style.transformOrigin = direction < 0 ? '50% 6%' : '50% 94%';
+      seatEffect = art.animate([
+        { transform: 'scale(1.105, .84)', offset: 0 },
+        { transform: 'scale(.986, 1.035)', offset: .47 },
+        { transform: 'none', offset: 1 },
+      ], { duration: 180, easing: 'ease-out' });
+      addMark(artX - 47, y + direction * 39, 15, 4, direction, now);
+      addMark(artX + 43, y + direction * 32, 12, 4, direction, now);
+      scheduleDraw();
+    });
+
+    function cancelPointer(event) {
+      if (event.pointerId === drag?.pointerId) cancelDrag();
+    }
+
+    draft.addEventListener('pointercancel', cancelPointer);
+    draft.addEventListener('lostpointercapture', cancelPointer);
+    draft.addEventListener('contextmenu', event => event.preventDefault());
+    window.addEventListener('blur', () => {
+      cancelDrag();
+      stopVisuals();
+    });
+    window.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || !drag) return;
+      event.preventDefault();
+      cancelDrag();
+    });
+
+    function choose(index) {
+      cancelDrag();
+      stopVisuals();
+      commit(index);
+    }
+
+    draft.addEventListener('keydown', event => {
+      const keyboardSlots = {
+        ArrowUp: Math.max(0, committed - 1),
+        ArrowDown: Math.min(2, committed + 1),
+        Home: 2,
+        End: 0,
+      };
+      if (!Object.hasOwn(keyboardSlots, event.key)) return;
+      event.preventDefault();
+      choose(keyboardSlots[event.key]);
+    });
+
+    buttons.forEach((button, index) => button.addEventListener('click', () => choose(index)));
+    reduced.addEventListener('change', () => {
+      stopVisuals();
+      if (!drag) return;
+      drag.sampleAt = performance.now();
+      drag.lastMotion = -Infinity;
+      drag.lastInkAt = -Infinity;
+      drag.velocity = 0;
+    });
+    new ResizeObserver(() => {
+      if (!drag) moveDraft(measures().centers[committed]);
+    }).observe(stage);
+    commit(committed);
+  </script>
+</body>
+</html>

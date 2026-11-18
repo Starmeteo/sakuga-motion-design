@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>落版 · 印刷工作坊</title>
+  <style>
+    :root {
+      --surface: #eee8db;
+      --paper: #fcf2df;
+      --ink: #2b2c24;
+      --soft: #5e6053;
+      color: var(--ink);
+      background: var(--surface);
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; }
+    main { width: min(990px, calc(100% - 64px)); margin: 0 auto; padding: 40px 0 50px; }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #9d9989;
+      font-size: .95rem;
+      font-weight: 750;
+      letter-spacing: .1em;
+    }
+    .symbol { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid var(--ink); }
+    .symbol::before { content: ""; width: 11px; height: 11px; transform: rotate(45deg); background: var(--accent); }
+    .workbench {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      margin-top: 18px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .controls {
+      min-width: 0;
+      padding: clamp(24px, 4vw, 47px);
+      align-self: center;
+    }
+    h1 { margin: 0; font-size: clamp(3.1rem, 6.8vw, 5.1rem); font-weight: 800; line-height: 1.05; letter-spacing: -.06em; }
+    .guide { margin: 14px 0 28px; color: var(--soft); font-size: .95rem; line-height: 1.6; }
+    .picker legend { margin-bottom: 7px; padding: 0; color: var(--soft); font-size: .83rem; font-weight: 650; }
+    .picker { border: 0; padding: 0; margin: 0 0 18px; min-width: 0; }
+    .choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    button {
+      min-height: 45px;
+      border: 1px solid var(--ink);
+      border-radius: 0;
+      background: transparent;
+      color: var(--ink);
+      font: inherit;
+      font-size: .95rem;
+      font-weight: 720;
+      touch-action: manipulation;
+      cursor: pointer;
+    }
+    .choices button:nth-child(2) { border-inline-start: 0; }
+    .choices button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+    .choices button[aria-pressed="false"]:hover { background: var(--surface); }
+    button:focus-visible { position: relative; z-index: 1; outline: 3px solid #ac4a32; outline-offset: 3px; }
+    .commit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 51px;
+      padding: 10px 14px;
+      background: var(--accent);
+      color: #fffaf0;
+      box-shadow: 3px 3px var(--ink);
+    }
+    .commit:hover { filter: brightness(1.13); }
+    .counter {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 22px 0 0;
+      padding-top: 12px;
+      border-top: 1px solid #a9a497;
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--soft);
+    }
+    .total { font: 700 clamp(1.3rem, 5vw, 2.4rem) / 1.1 ui-monospace, monospace; color: var(--ink); }
+    .bed {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      min-height: 395px;
+      border-inline-start: 1px solid var(--ink);
+      background-color: var(--stage);
+      background-image:
+        linear-gradient(90deg, transparent 49%, #26271920 50%, transparent 51%),
+        linear-gradient(transparent 49%, #26271920 50%, transparent 51%);
+      background-size: 24px 24px;
+      overflow: hidden;
+      isolation: isolate;
+      pointer-events: none;
+    }
+    .register {
+      position: absolute;
+      inset: 12% 12% 13%;
+      background:
+        linear-gradient(var(--ink), var(--ink)) 0 0 / 15px 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 0 0 / 1px 15px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 100% 0 / 15px 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 100% 0 / 1px 15px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 0 100% / 15px 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 0 100% / 1px 15px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 100% 100% / 15px 1px no-repeat,
+        linear-gradient(var(--ink), var(--ink)) 100% 100% / 1px 15px no-repeat;
+    }
+    .paper, .shadow {
+      position: absolute;
+      left: 23%;
+      right: 23%;
+      bottom: 25%;
+      height: 26%;
+      transform: skewX(-18deg);
+      border: 1px solid var(--ink);
+    }
+    .shadow {
+      left: 32%;
+      right: 26%;
+      bottom: 38%;
+      height: 10%;
+      border: 0;
+      opacity: .62;
+      background: var(--side);
+      transform-origin: 50% 50%;
+    }
+    .paper { background: var(--paper); box-shadow: 0 5px 0 #9b927f; }
+    .paper::before {
+      content: "";
+      position: absolute;
+      inset: 19% 11%;
+      border: 1px solid #8a8470;
+      background: linear-gradient(transparent 69%, #b3a58d 70%, transparent 71%);
+    }
+    .impression {
+      position: absolute;
+      left: 22%;
+      bottom: 21%;
+      width: 50%;
+      height: 25%;
+      background: repeating-linear-gradient(112deg, var(--accent) 0 8px, transparent 8px 11px);
+      clip-path: polygon(0 80%, 58% 0, 100% 67%, 12% 100%);
+    }
+    .block {
+      position: absolute;
+      left: 26%;
+      right: 26%;
+      bottom: 46%;
+      height: 24%;
+      transform-origin: center bottom;
+      transform: none;
+    }
+    .side, .top {
+      position: absolute;
+      inset: 0;
+      border: var(--stroke) solid var(--ink);
+      transform: skewX(-18deg);
+    }
+    .side { top: 19%; background: var(--side); }
+    .top {
+      bottom: 19%;
+      background:
+        linear-gradient(110deg, transparent 72%, #2b2c2420 72%),
+        linear-gradient(110deg, var(--paper) 10%, transparent 10%), var(--face);
+    }
+    .top::after {
+      content: "";
+      position: absolute;
+      inset: 18% 10%;
+      background: repeating-linear-gradient(112deg, var(--ink) 0 9px, transparent 9px 13px);
+      clip-path: polygon(0 78%, 54% 0, 100% 78%, 12% 100%);
+    }
+    .effects {
+      position: absolute;
+      left: 13%;
+      right: 13%;
+      bottom: 41%;
+      height: 9%;
+    }
+    .wedge {
+      position: absolute;
+      width: 12%;
+      height: 49%;
+      transform-origin: right center;
+      clip-path: polygon(0 6%, 100% 96%, 47% 77%);
+      background: var(--impact);
+      opacity: 0;
+    }
+    .wedge:nth-child(1) { left: 1%; top: 10%; rotate: 4deg; }
+    .wedge:nth-child(2) { left: 0; top: 59%; rotate: -33deg; }
+    .wedge:nth-child(3) { right: 2%; top: 10%; scale: -1 1; rotate: -3deg; }
+    .wedge:nth-child(4) { right: 0; top: 59%; scale: -1 1; rotate: 33deg; }
+    @media (max-width: 680px) {
+      main { width: calc(100% - 36px); padding-top: 19px; }
+      .workbench { grid-template-columns: minmax(0, 1fr); margin-top: 14px; box-shadow: 4px 4px var(--ink); }
+      .controls { padding: 21px 23px; }
+      .guide { margin: 10px 0 16px; }
+      .picker { margin-bottom: 12px; }
+      .counter { margin-top: 16px; padding-top: 10px; }
+      .bed { border-inline-start: 0; border-top: 1px solid var(--ink); min-height: clamp(238px, 64vw, 350px); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header><span class="symbol" aria-hidden="true"></span>印刷工作坊</header>
+    <section class="workbench" aria-labelledby="title">
+      <div class="controls">
+        <h1 id="title">印台</h1>
+        <p class="guide">压下印板，在纸上留一个印样。</p>
+        <fieldset class="picker">
+          <legend>反馈力度</legend>
+          <div class="choices">
+            <button type="button" aria-pressed="true" data-profile="restrained">克制</button>
+            <button type="button" aria-pressed="false" data-profile="expressive">表现</button>
+          </div>
+        </fieldset>
+        <button type="button" class="commit">落版 <span aria-hidden="true">↓</span></button>
+        <p class="counter" role="status" aria-atomic="true"><span>印次</span><span class="total">0</span></p>
+      </div>
+      <div class="bed" aria-hidden="true">
+        <div class="register"></div>
+        <div class="paper"><div class="impression" hidden></div></div>
+        <div class="shadow"></div>
+        <div class="effects"><i class="wedge"></i><i class="wedge"></i><i class="wedge"></i><i class="wedge"></i></div>
+        <div class="block"><div class="side"></div><div class="top"></div></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const profiles = {
+      restrained: {
+        colors: { stage: "#c6c8ad", accent: "#365a49", face: "#a4b8a0", side: "#6c8773", impact: "#365a49" },
+        stroke: 2,
+        lift: .065,
+        squash: .86,
+        width: 1.08,
+        rebound: .026,
+        duration: 313,
+        wedges: [0, 2],
+        spread: 13
+      },
+      expressive: {
+        colors: { stage: "#d8b897", accent: "#8b3626", face: "#e3aa76", side: "#ad6042", impact: "#992e28" },
+        stroke: 3,
+        lift: .145,
+        squash: .65,
+        width: 1.22,
+        rebound: .058,
+        duration: 462,
+        wedges: [0, 1, 2, 3],
+        spread: 25
+      }
+    };
+    const root = document.documentElement;
+    const press = document.querySelector(".commit");
+    const total = document.querySelector(".total");
+    const bed = document.querySelector(".bed");
+    const block = document.querySelector(".block");
+    const shadow = document.querySelector(".shadow");
+    const impression = document.querySelector(".impression");
+    const wedges = Array.from(document.querySelectorAll(".wedge"));
+    const choices = Array.from(document.querySelectorAll("[data-profile]"));
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+    let currentProfile;
+    let impressions = 0;
+    let visualBatch = [];
+
+    function stopImpact() {
+      for (const animation of visualBatch) animation.cancel();
+      visualBatch = [];
+    }
+
+    function setProfile(key) {
+      if (key === currentProfile) return;
+      stopImpact();
+      currentProfile = key;
+      const { colors, stroke } = profiles[currentProfile];
+      for (const [property, value] of Object.entries(colors)) root.style.setProperty(`--${property}`, value);
+      root.style.setProperty("--stroke", `${stroke}px`);
+      for (const button of choices) {
+        button.setAttribute("aria-pressed", String(button.dataset.profile === key));
+      }
+    }
+
+    function playImpact(profile) {
+      const size = bed.clientHeight;
+      const contact = size * .05;
+      const lift = size * profile.lift;
+      const rebound = size * profile.rebound;
+      const hit = .375;
+      const settle = .64;
+      const pose = (y, width, height) => `translateY(${y}px) scale(${width}, ${height})`;
+      visualBatch.push(block.animate([
+        { offset: 0, transform: "none", easing: "ease-out" },
+        { offset: .17, transform: pose(-lift, .986, 1.052), easing: "cubic-bezier(.58,.02,.89,.39)" },
+        { offset: hit - .045, transform: pose(contact * .8, .966, 1.075), easing: "ease-out" },
+        { offset: hit, transform: pose(contact, profile.width, profile.squash), easing: "cubic-bezier(.22,.57,.44,1)" },
+        { offset: hit + .055, transform: pose(contact, profile.width * .982, profile.squash * 1.017), easing: "ease-out" },
+        { offset: settle, transform: pose(-rebound, .985, 1.036), easing: "ease-in-out" },
+        { offset: .84, transform: pose(rebound * .19, 1.006, .993), easing: "ease-out" },
+        { offset: 1, transform: "none" }
+      ], profile.duration));
+      visualBatch.push(shadow.animate([
+        { offset: 0, opacity: .62, transform: "skewX(-18deg)" },
+        { offset: .17, opacity: .29, transform: "skewX(-18deg) scaleX(.82)" },
+        { offset: hit, opacity: .93, transform: "skewX(-18deg) scaleX(1.13)" },
+        { offset: settle, opacity: .57, transform: "skewX(-18deg) scaleX(.97)" },
+        { offset: 1, opacity: .62, transform: "skewX(-18deg)" }
+      ], profile.duration));
+      for (const index of profile.wedges) {
+        const direction = index < 2 ? -1 : 1;
+        const distance = direction * profile.spread;
+        visualBatch.push(wedges[index].animate([
+          { opacity: .98, transform: "translateX(0) scale(.75, 1)" },
+          { opacity: .94, transform: `translateX(${distance * .24}px) scale(1.06, .86)`, offset: .18 },
+          { opacity: 0, transform: `translateX(${distance}px) scale(0, .1)` }
+        ], {
+          delay: profile.duration * hit,
+          duration: profile.duration * .52,
+          easing: "cubic-bezier(.22,.48,.48,1)"
+        }));
+      }
+    }
+
+    press.addEventListener("click", () => {
+      impressions += 1;
+      total.textContent = String(impressions);
+      impression.hidden = false;
+      stopImpact();
+      if (!reducedMotion.matches) playImpact(profiles[currentProfile]);
+    });
+    for (const button of choices) {
+      button.addEventListener("click", () => setProfile(button.dataset.profile));
+    }
+    reducedMotion.addEventListener("change", (event) => {
+      if (event.matches) stopImpact();
+    });
+    window.addEventListener("pagehide", stopImpact);
+    setProfile("restrained");
+  </script>
+</body>
+</html>
