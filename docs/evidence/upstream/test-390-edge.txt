@@ -1,0 +1,22 @@
+ok   all eleven elements are defined
+ok   one shared core
+ok   button: tap fires click and done() lands the check
+ok   toggle: tap turns it on
+ok   toggle: aria-checked follows
+ok   slider: a drag moves it  ->  93
+ok   slider: arrow key steps it
+ok   checkbox: tap ticks it
+ok   radio: tap selects B
+ok   input: typing sets the value
+ok   tabs: tap selects the third
+ok   tabs: arrow key moves back
+ok   rating: tap sets four
+ok   rating: four stars lit
+ok   progress: the demo load completes  ->  Complete ✓
+ok   progress: set(0.5) eases to half
+ok   toast: it arrives
+ok   toast: it leaves
+ok   tooltip: tap opens it
+ok   tooltip: Escape closes it
+ok   forms: values are sent with a form  ->  c=on&s=42&r=3&t=on
+ok   no horizontal scroll at 390  ->  390

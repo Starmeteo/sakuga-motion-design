@@ -1,0 +1,14 @@
+{
+  "browser": "159.0.8154.6",
+  "rapidSequenceMs": 9,
+  "checks": [
+    "desktop initial list, count and unavailable Undo",
+    "pointer hold keeps hitbox fixed; drag away and release leaves original state",
+    "rapid remove, remove, double Undo, remove sequence; state still correct after visual cleanup",
+    "Tab, Enter, Space, held Enter, empty state, four LIFO restorations and recovery focus",
+    "390 CSS px at DPR 2 with simulated tap and reduced motion set before load",
+    "reduce during active removal clears it, preserves state; preference reset waits for next action",
+    "fixed-time evidence for idle, hold, removal impact and settle, restore and settle"
+  ],
+  "pageErrors": []
+}

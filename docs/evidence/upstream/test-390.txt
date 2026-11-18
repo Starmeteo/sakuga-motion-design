@@ -1,0 +1,3 @@
+Warning: Detected unsettled top-level await at upstream/tools/test.mjs:23
+await send('Page.enable'); await send('Page.navigate', { url: URL_ }); await sleep(1800);
+                           ^

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ink & Inertia — Motion studies</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell" data-motion-demo>
+    <header class="masthead">
+      <div class="identity"><span class="printer-mark" aria-hidden="true"></span> Ink &amp; Inertia</div>
+      <div class="profiles" role="group" aria-label="Motion style">
+        <button type="button" data-preset="restrained" aria-pressed="true">Restrained</button>
+        <button type="button" data-preset="expressive" aria-pressed="false">Expressive</button>
+      </div>
+    </header>
+    <main>
+      <section class="chapter" aria-labelledby="chapter-title" data-chapter-panel data-chapter-current="pressure">
+        <div class="chapter-copy">
+          <p class="eyebrow" data-chapter-index>Study 01 / 03</p>
+          <h1 id="chapter-title" data-chapter-title>Pressure</h1>
+          <p class="chapter-description" data-chapter-description>A held shape gathers force before it breaks.</p>
+        </div>
+        <div class="plate" aria-hidden="true">
+          <div class="plate-folio"></div>
+          <div class="plate-drawing" data-plate>
+            <div class="plate-shadow"></div>
+            <div class="plate-body"></div>
+            <div class="plate-light"></div>
+            <div class="ink-cut ink-cut-first"></div>
+            <div class="ink-cut ink-cut-second"></div>
+            <div class="ink-cut ink-cut-third"></div>
+          </div>
+          <span class="plate-rule"></span>
+        </div>
+        <canvas data-fx="chapter" aria-hidden="true"></canvas>
+        <div class="chapters" role="group" aria-label="Choose a study">
+          <button type="button" data-chapter="pressure" aria-pressed="true">01 Pressure</button>
+          <button type="button" data-chapter="flight" aria-pressed="false">02 Flight</button>
+          <button type="button" data-chapter="arrival" aria-pressed="false">03 Arrival</button>
+        </div>
+        <span class="sr-only" data-chapter-announcement role="status"></span>
+      </section>
+      <div class="workbench">
+        <section class="station placement" aria-labelledby="placement-title">
+          <header class="station-header">
+            <h2 id="placement-title">Position the print</h2>
+            <p id="placement-help">Drag the print, use the arrow keys on it, or choose a position.</p>
+          </header>
+          <div class="drag-board" data-dragboard>
+            <canvas data-fx="drag" aria-hidden="true"></canvas>
+            <div class="track" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="artwork" data-artwork role="slider" tabindex="0" aria-label="Print position" aria-describedby="placement-help" aria-valuemin="1" aria-valuemax="3" aria-valuenow="2" aria-valuetext="Centre">
+              <span class="artwork-face" data-artwork-face aria-hidden="true"><span></span></span>
+            </div>
+          </div>
+          <div class="positions" role="group" aria-label="Place the print">
+            <button type="button" data-place="left" aria-pressed="false">Left</button>
+            <button type="button" data-place="center" aria-pressed="true">Centre</button>
+            <button type="button" data-place="right" aria-pressed="false">Right</button>
+          </div>
+          <span class="sr-only" data-placement-announcement role="status"></span>
+        </section>
+        <section class="station impression" aria-labelledby="impression-title" data-impression>
+          <header class="station-header">
+            <h2 id="impression-title">Pull an impression</h2>
+            <p>Press the block to register a print.</p>
+          </header>
+          <canvas data-fx="impact" aria-hidden="true"></canvas>
+          <div class="press-bed" data-press-bed>
+            <button type="button" class="press" data-confirm><span data-press-face>Make a print <span aria-hidden="true">↘</span></span></button>
+          </div>
+          <p class="counter" data-count role="status">No prints registered</p>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="./scene.js"></script>
+</body>
+</html>

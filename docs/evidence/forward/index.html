@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>侧页编辑部 · 海报阅读清单</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6efdf;
+      --card: #fff7e6;
+      --ink: #241d1a;
+      --muted: #65574b;
+      --rule: #baaa96;
+      --press: #422922;
+      --accent: #f3a36f;
+      --focus: #8f2b20;
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body { margin: 0; min-inline-size: 0; }
+    button { color: inherit; font: inherit; }
+    button:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+    .page {
+      margin-inline: auto;
+      width: min(calc(100% - 72px), 980px);
+    }
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      column-gap: 16px;
+      padding-block: 24px 18px;
+      border-bottom: 2px solid var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .print-mark {
+      display: inline-block;
+      inline-size: 24px;
+      block-size: 19px;
+      background: var(--ink);
+      clip-path: polygon(4% 15%, 78% 5%, 78% 25%, 15% 44%, 19% 64%, 96% 49%, 96% 82%, 2% 99%);
+    }
+    .roman {
+      font: 700 11px/1.45 ui-monospace, Consolas, monospace;
+      letter-spacing: .13em;
+    }
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr minmax(180px, 24ch);
+      gap: 16px;
+      align-items: end;
+      padding-block: 49px 35px;
+    }
+    h1, h2, p { margin: 0; }
+    h1 {
+      font-family: "Noto Serif SC", "Songti SC", SimSun, Georgia, serif;
+      font-size: clamp(52px, 8vw, 94px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.06em;
+    }
+    .intro p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+      padding-block: 0 6px;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 50px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 9px 13px;
+      min-block-size: 75px;
+      background: var(--press);
+      color: var(--card);
+      box-shadow: 3px 3px 0 var(--ink);
+      isolation: isolate;
+    }
+    .actions button:focus-visible { outline-color: var(--accent); }
+    .signal { width: 50px; height: 50px; position: relative; isolation: isolate; }
+    .slip {
+      position: absolute;
+      inset: 5px 15px 10px;
+      background: var(--accent);
+      transform-origin: 50% 100%;
+      clip-path: polygon(1% 8%, 76% 0, 99% 15%, 95% 94%, 4% 100%);
+    }
+    .slip::before, .slip::after, .tray, .hit-ink {
+      content: "";
+      position: absolute;
+      display: block;
+    }
+    .slip::before, .slip::after {
+      top: 37%;
+      left: 20%;
+      width: 59%;
+      height: 9%;
+      background: var(--press);
+      clip-path: polygon(0 30%, 100% 0, 95% 75%, 8% 100%);
+    }
+    .slip::after { top: 58%; width: 43%; }
+    .tray {
+      top: 82%;
+      left: 16%;
+      width: 67%;
+      height: 9%;
+      background: var(--card);
+      clip-path: polygon(0 3%, 100% 24%, 96% 91%, 7% 100%);
+    }
+    .hit-ink {
+      inset: 55% 0 13%;
+      transform-origin: 50% 68%;
+      visibility: hidden;
+    }
+    .hit-ink::before, .hit-ink::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      clip-path: polygon(0 0, 37% 55%, 27% 70%, 19% 54%, 7% 38%);
+    }
+    .hit-ink::after {
+      clip-path: polygon(100% 9%, 90% 42%, 83% 49%, 72% 73%, 64% 60%, 76% 43%);
+    }
+    .status {
+      margin-block-end: 3px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+    .count { color: #f0cdbc; font-size: 12px; line-height: 1.45; }
+    .undo {
+      position: relative;
+      min-block-size: 44px;
+      min-inline-size: 75px;
+      padding: 4px 12px;
+      border: 2px solid var(--card);
+      background: var(--card);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .undo:disabled {
+      border-color: #9f7e70;
+      color: #e0c0ad;
+      background: transparent;
+      cursor: default;
+    }
+    .undo:enabled:hover { background: var(--accent); border-color: var(--accent); }
+    .posters {
+      list-style: none;
+      margin: 17px 0 0;
+      padding: 0;
+    }
+    .poster {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr) auto;
+      gap: clamp(12px, 3.3vw, 36px);
+      align-items: center;
+      min-block-size: 118px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .frame {
+      position: relative;
+      aspect-ratio: 1.41;
+      isolation: isolate;
+      overflow: hidden;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .art {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background-color: var(--stock);
+      background-image: radial-gradient(var(--pigment) .35px, transparent .65px);
+      background-size: 3px 3px;
+      color: var(--pigment);
+      transform-origin: right center;
+    }
+    .art::before, .art::after {
+      content: "";
+      display: block;
+      position: absolute;
+      background: currentColor;
+    }
+    [data-work="current"] { --stock: #f18e72; --pigment: #442725; }
+    [data-work="current"] .art::before {
+      inset: 3px -5px 6px;
+      clip-path: polygon(0 61%, 18% 64%, 34% 38%, 49% 24%, 66% 37%, 77% 32%,
+        100% 5%, 100% 36%, 91% 53%, 77% 70%, 62% 72%, 43% 60%, 31% 70%, 19% 87%, 0 88%);
+    }
+    [data-work="current"] .art::after {
+      inset: 10px -5px 1px;
+      clip-path: polygon(0 96%, 19% 96%, 36% 75%, 50% 70%, 66% 84%, 82% 76%, 100% 62%,
+        100% 66%, 82% 80%, 67% 88%, 49% 75%, 36% 80%, 20% 100%, 0 100%);
+    }
+    [data-work="field"] { --stock: #e6d8a6; --pigment: #3a4a36; }
+    [data-work="field"] .art::before {
+      inset: 1px 11px 0;
+      clip-path: polygon(49% 100%, 45% 63%, 39% 52%, 4% 35%, 13% 24%, 29% 32%, 47% 50%, 46% 24%,
+        55% 3%, 63% 13%, 63% 29%, 52% 56%, 71% 38%, 92% 29%, 98% 38%, 81% 51%, 54% 62%, 54% 100%);
+    }
+    [data-work="field"] .art::after {
+      inset: 17% 74% 66% 12%;
+      border-radius: 48% 53% 49% 55%;
+      transform: rotate(17deg);
+    }
+    [data-work="press"] { --stock: #2c2729; --pigment: #f1c490; }
+    [data-work="press"] .art::before {
+      inset: 13% 10% 12%;
+      clip-path: polygon(0 14%, 38% 0, 34% 42%, 72% 5%, 100% 0, 87% 70%, 95% 91%, 63% 97%,
+        65% 61%, 40% 94%, 16% 100%, 25% 49%, 3% 67%);
+    }
+    [data-work="press"] .art::after {
+      inset: 85% 6% 8% 12%;
+      clip-path: polygon(0 28%, 100% 0, 89% 90%, 1% 100%);
+    }
+    [data-work="place"] { --stock: #b5bec3; --pigment: #233346; }
+    [data-work="place"] .art::before {
+      inset: 10% 6%;
+      clip-path: polygon(0 27%, 41% 7%, 74% 20%, 93% 3%, 100% 18%, 79% 40%, 44% 23%, 14% 41%,
+        17% 68%, 50% 80%, 85% 57%, 96% 63%, 60% 100%, 36% 94%, 7% 77%);
+    }
+    [data-work="place"] .art::after {
+      inset: 39% 40% 38% 42%;
+      border-radius: 54% 45% 49% 55%;
+      transform: rotate(-20deg);
+    }
+    .return-ink {
+      position: absolute;
+      inset: 18% 1px 18% auto;
+      width: 18%;
+      transform-origin: right center;
+      background: var(--card);
+      clip-path: polygon(0 19%, 100% 4%, 100% 14%, 0 24%, 0 76%, 100% 46%, 100% 60%, 0 81%);
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .poster h2 {
+      margin-block-end: 6px;
+      font-size: clamp(18px, 3.3vw, 24px);
+      font-weight: 800;
+      line-height: 1.3;
+    }
+    .poster p { font-size: 13px; line-height: 1.45; color: var(--muted); }
+    .remove {
+      display: inline-grid;
+      place-items: center;
+      min-inline-size: 52px;
+      block-size: 44px;
+      padding: 0 8px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .remove:hover { background: #eadcc3; }
+    .empty {
+      min-height: 150px;
+      padding-block: 32px;
+      border-bottom: 1px solid var(--rule);
+      line-height: 1.6;
+    }
+    main { padding-block-end: 35px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .remove:active span, .undo:enabled:active span {
+        display: inline-block;
+        transform: scale(1.06, .9);
+        transform-origin: bottom;
+      }
+    }
+    @media (max-width: 600px) {
+      .page { width: calc(100% - 40px); }
+      .intro { grid-template-columns: 1fr; gap: 10px; padding-block: 32px 21px; }
+      .intro p { padding: 0; }
+      .poster { grid-template-columns: 75px minmax(0, 1fr) auto; min-block-size: 96px; }
+      .poster h2 { margin-block-end: 3px; }
+    }
+    @media (max-width: 360px) {
+      .page { width: calc(100% - 28px); }
+      .actions { grid-template-columns: 38px minmax(0, 1fr) auto; gap: 8px; padding: 9px; }
+      .signal { width: 38px; }
+      .slip { inset-inline: 10px; }
+      .poster { grid-template-columns: 56px minmax(0, 1fr) auto; }
+    }
+  </style>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const readingList = document.querySelector("#reading-list");
+      const posters = [...readingList.querySelectorAll(".poster")];
+      const undoButton = readingList.querySelector(".undo");
+      const status = readingList.querySelector(".status");
+      const count = readingList.querySelector(".count");
+      const empty = readingList.querySelector(".empty");
+      const slip = readingList.querySelector(".slip");
+      const hitInk = readingList.querySelector(".hit-ink");
+      const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+      const history = [];
+      let currentMotion = [];
+
+      const timing = { remove: 215, removalInk: 175, restore: 185, returnInk: 165 };
+
+      function stopMotion() {
+        for (const animation of currentMotion) animation.cancel();
+        currentMotion = [];
+      }
+
+      function animate(element, keyframes, duration) {
+        currentMotion.push(element.animate(keyframes, duration));
+      }
+
+      function playRemoval() {
+        animate(slip, [
+          { transform: "translateY(-3px) scale(1, 1.04)", easing: "cubic-bezier(.64,.05,.94,.64)" },
+          { offset: .27, transform: "translateY(4px) scale(1.19, .77)", easing: "cubic-bezier(.12,.7,.32,1)" },
+          { offset: .63, transform: "translateY(-2px) scale(.97, 1.05)", easing: "ease-out" },
+          { transform: "none" },
+        ], timing.remove);
+        animate(hitInk, [
+          { offset: 0, visibility: "hidden", transform: "scaleX(.6) scaleY(1)" },
+          { offset: .33, visibility: "hidden", transform: "scaleX(.6) scaleY(1)" },
+          { offset: .34, visibility: "visible", transform: "scaleX(.82) scaleY(1)" },
+          { offset: .63, visibility: "visible", transform: "scaleX(1) scaleY(.46)" },
+          { visibility: "visible", transform: "scaleX(1) scaleY(0)" },
+        ], timing.removalInk);
+      }
+
+      function playRestore(row) {
+        animate(row.querySelector(".art"), [
+          { transform: "translateX(-10px) scale(1.1, .96)", easing: "cubic-bezier(.24,.66,.44,1)" },
+          { offset: .52, transform: "translateX(2px) scale(.988, 1.016)", easing: "ease-out" },
+          { transform: "none" },
+        ], timing.restore);
+        animate(row.querySelector(".return-ink"), [
+          { offset: 0, visibility: "hidden", transform: "scaleX(1) scaleY(1)" },
+          { offset: .42, visibility: "hidden", transform: "scaleX(1) scaleY(1)" },
+          { offset: .43, visibility: "visible", transform: "scaleX(1) scaleY(1)" },
+          { offset: .7, visibility: "visible", transform: "scaleX(.57) scaleY(.45)" },
+          { visibility: "visible", transform: "scaleX(0) scaleY(.28)" },
+        ], timing.returnInk);
+      }
+
+      function updateList(message) {
+        const remaining = posters.length - history.length;
+        status.textContent = message;
+        count.textContent = `清单内 ${remaining} 张 · 待撤销 ${history.length} 项`;
+        undoButton.disabled = history.length === 0;
+        empty.hidden = remaining > 0;
+      }
+
+      function remove(row) {
+        if (row.hidden) return;
+        stopMotion();
+        const hadFocus = row.contains(document.activeElement);
+        const index = posters.indexOf(row);
+        history.push(row);
+        row.hidden = true;
+        updateList(`已移除《${row.dataset.title}》`);
+        if (hadFocus) {
+          const next = posters.slice(index + 1).find((poster) => !poster.hidden);
+          const previous = posters.slice(0, index).findLast((poster) => !poster.hidden);
+          (next?.querySelector("button") ?? previous?.querySelector("button") ?? undoButton).focus();
+        }
+        if (!reduce.matches) playRemoval();
+      }
+
+      function restore() {
+        if (history.length === 0) return;
+        stopMotion();
+        const row = history.pop();
+        const undoHadFocus = document.activeElement === undoButton;
+        row.hidden = false;
+        updateList(`已恢复《${row.dataset.title}》`);
+        if (undoHadFocus && undoButton.disabled) row.querySelector("button").focus();
+        if (!reduce.matches) playRestore(row);
+      }
+
+      readingList.addEventListener("click", (event) => {
+        const clicked = event.target.closest("button");
+        if (clicked === undoButton) restore();
+        if (clicked?.matches(".remove")) remove(clicked.closest(".poster"));
+      });
+      readingList.addEventListener("keydown", (event) => {
+        if (event.repeat && (event.key === "Enter" || event.key === " ") && event.target.matches("button")) {
+          event.preventDefault();
+        }
+      });
+      reduce.addEventListener("change", stopMotion);
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) stopMotion();
+      });
+    });
+  </script>
+</head>
+<body>
+  <header class="masthead page">
+    <div class="brand"><span aria-hidden="true" class="print-mark"></span>侧页编辑部</div>
+    <span class="roman" lang="en">POSTER ARCHIVE</span>
+  </header>
+  <main class="page">
+    <section id="reading-list" aria-labelledby="reading-title">
+      <header class="intro">
+        <h1 id="reading-title">阅读清单</h1>
+        <p>移除海报后，可在清单上方依次撤销。</p>
+      </header>
+      <div class="actions">
+        <div class="signal" aria-hidden="true">
+          <span class="hit-ink"></span><span class="slip"></span><span class="tray"></span>
+        </div>
+        <div>
+          <p class="status" role="status" aria-atomic="true">已收藏的海报</p>
+          <p class="count">清单内 4 张 · 待撤销 0 项</p>
+        </div>
+        <button type="button" class="undo" disabled><span>撤销</span></button>
+      </div>
+      <ul class="posters" role="list">
+        <li class="poster" data-work="current" data-title="逆流">
+          <div class="frame" aria-hidden="true"><div class="art"></div><div class="return-ink"></div></div>
+          <div><h2>逆流</h2><p>展览海报 · 2026.10</p></div>
+          <button type="button" class="remove" aria-label="移除《逆流》"><span>移除</span></button>
+        </li>
+        <li class="poster" data-work="field" data-title="野地来信">
+          <div class="frame" aria-hidden="true"><div class="art"></div><div class="return-ink"></div></div>
+          <div><h2>野地来信</h2><p>独立刊物 · 2026.09</p></div>
+          <button type="button" class="remove" aria-label="移除《野地来信》"><span>移除</span></button>
+        </li>
+        <li class="poster" data-work="press" data-title="印刷过夜">
+          <div class="frame" aria-hidden="true"><div class="art"></div><div class="return-ink"></div></div>
+          <div><h2>印刷过夜</h2><p>工作坊海报 · 2026.08</p></div>
+          <button type="button" class="remove" aria-label="移除《印刷过夜》"><span>移除</span></button>
+        </li>
+        <li class="poster" data-work="place" data-title="在场练习">
+          <div class="frame" aria-hidden="true"><div class="art"></div><div class="return-ink"></div></div>
+          <div><h2>在场练习</h2><p>剧场海报 · 2026.06</p></div>
+          <button type="button" class="remove" aria-label="移除《在场练习》"><span>移除</span></button>
+        </li>
+      </ul>
+      <p class="empty" hidden>阅读清单为空。使用上方的「撤销」恢复最后移除的海报。</p>
+    </section>
+  </main>
+</body>
+</html>

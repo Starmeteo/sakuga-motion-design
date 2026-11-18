@@ -1,0 +1,404 @@
+* { box-sizing: border-box; }
+
+:root {
+  color-scheme: light;
+  --paper: #f8f2e7;
+  --ink: #242722;
+  --card: #fff9ec;
+  --shadow: #89a296;
+  --accent: #c84d30;
+  --plate: #d7dfcd;
+  --rule: #aaad9c;
+  --stroke: 2px;
+  --corner: 4px;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+button {
+  min-height: 44px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:focus-visible, .artwork:focus-visible {
+  outline: 2px dashed currentColor;
+  outline-offset: 3px;
+}
+
+.shell {
+  min-height: 100vh;
+  padding: 0 clamp(16px, 5.2vw, 64px) 32px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+main, .masthead { max-width: 1096px; margin-inline: auto; }
+
+.masthead {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  font: italic 700 clamp(1.3rem, 3vw, 1.75rem)/1 Georgia, serif;
+  white-space: nowrap;
+}
+
+.printer-mark {
+  display: inline-block;
+  width: .65em;
+  aspect-ratio: 1;
+  background: var(--accent);
+  clip-path: polygon(49% 0, 61% 32%, 95% 12%, 82% 42%, 100% 60%, 68% 64%, 64% 100%, 48% 77%, 22% 94%, 28% 61%, 0 49%, 32% 39%, 31% 7%);
+}
+
+.profiles, .chapters, .positions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.profiles button, .chapters button, .positions button {
+  border: 1px solid transparent;
+  border-radius: var(--corner);
+  background: transparent;
+  padding: 0 clamp(8px, 1vw, 13px);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.profiles button:hover, .chapters button:hover, .positions button:hover {
+  border-color: var(--ink);
+}
+
+.profiles button[aria-pressed="true"],
+.chapters button[aria-pressed="true"],
+.positions button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--card);
+}
+
+.profiles button[aria-pressed="true"]:focus-visible,
+.chapters button[aria-pressed="true"]:focus-visible,
+.positions button[aria-pressed="true"]:focus-visible { outline-color: var(--ink); }
+
+.chapter, .station {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--corner);
+}
+
+.chapter {
+  display: grid;
+  grid-template: 1fr auto / 1.12fr 1fr;
+  min-height: clamp(345px, 35vw, 405px);
+  margin-top: 23px;
+  background: var(--card);
+}
+
+.chapter-copy {
+  z-index: 2;
+  align-self: center;
+  padding: 2.25rem 0 1.5rem clamp(20px, 5vw, 65px);
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  font: 700 .76rem/1 ui-monospace, Consolas, monospace;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font: 700 clamp(3.3rem, 8.25vw, 7.6rem)/.82 Georgia, serif;
+  letter-spacing: -.052em;
+  transform-origin: 6% 85%;
+}
+
+.chapter-description {
+  max-width: 25ch;
+  margin: 1.35rem 0 0;
+  font: italic clamp(1.08rem, 2.2vw, 1.5rem)/1.3 Georgia, serif;
+}
+
+.chapters {
+  z-index: 2;
+  align-self: end;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  padding: 0 clamp(12px, 4.2vw, 56px) 18px;
+}
+
+.plate {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--plate);
+  border-left: 1px solid var(--ink);
+}
+
+.plate::before, .plate::after {
+  content: "";
+  position: absolute;
+  width: 115%;
+  height: 1px;
+  top: 59%;
+  left: -8%;
+  background: var(--ink);
+  transform: rotate(-21deg);
+  opacity: .62;
+}
+
+.plate::after { top: 65%; opacity: .28; }
+
+.plate-folio {
+  position: absolute;
+  width: 62%;
+  aspect-ratio: 1;
+  border: 1px solid var(--ink);
+  border-radius: 47% 53% 54% 46% / 53% 48% 52% 47%;
+  transform: rotate(-17deg);
+  opacity: .43;
+}
+
+.plate-drawing {
+  position: relative;
+  z-index: 1;
+  width: min(73%, 356px);
+  aspect-ratio: 1.25;
+}
+
+.plate-shadow, .plate-body, .plate-light, .ink-cut {
+  position: absolute;
+  inset: 0;
+  --silhouette: polygon(1% 62%, 12% 43%, 23% 40%, 35% 14%, 57% 9%, 66% 22%, 93% 27%, 100% 47%, 87% 65%, 69% 66%, 55% 87%, 23% 91%);
+  clip-path: var(--silhouette);
+}
+
+.plate-shadow { background: var(--ink); transform: translate(7px, 9px); }
+.plate-body { background: var(--ink); }
+.plate-light { background: var(--card); transform: scale(.958); }
+.ink-cut-first {
+  background: var(--shadow);
+  clip-path: polygon(5% 61%, 21% 53%, 35% 38%, 58% 46%, 73% 27%, 92% 32%, 97% 46%, 85% 63%, 68% 64%, 54% 85%, 24% 88%);
+}
+.ink-cut-second {
+  background: var(--ink);
+  clip-path: polygon(23% 65%, 40% 56%, 55% 59%, 70% 42%, 84% 38%, 69% 46%, 56% 64%, 44% 60%);
+}
+.ink-cut-third {
+  background: var(--accent);
+  clip-path: polygon(19% 52%, 29% 27%, 33% 27%, 26% 43%, 40% 36%, 45% 38%);
+}
+
+.chapter[data-chapter-current="flight"] .plate-drawing { --rest-angle: -13deg; }
+.chapter[data-chapter-current="flight"] .plate-shadow,
+.chapter[data-chapter-current="flight"] .plate-body,
+.chapter[data-chapter-current="flight"] .plate-light {
+  --silhouette: polygon(1% 74%, 19% 52%, 34% 49%, 54% 25%, 89% 17%, 100% 33%, 69% 59%, 75% 72%, 41% 75%, 30% 88%, 14% 87%);
+}
+.chapter[data-chapter-current="flight"] .ink-cut-first {
+  clip-path: polygon(6% 74%, 31% 63%, 60% 46%, 95% 30%, 97% 33%, 66% 59%, 72% 70%, 39% 74%, 28% 86%, 15% 84%);
+}
+.chapter[data-chapter-current="flight"] .ink-cut-second {
+  clip-path: polygon(19% 73%, 39% 65%, 64% 46%, 80% 38%, 62% 51%, 42% 70%);
+}
+.chapter[data-chapter-current="flight"] .ink-cut-third {
+  clip-path: polygon(45% 45%, 55% 31%, 74% 26%, 60% 34%, 70% 34%, 56% 43%);
+}
+.chapter[data-chapter-current="arrival"] .plate-drawing { --rest-angle: 10deg; }
+.chapter[data-chapter-current="arrival"] .plate-shadow,
+.chapter[data-chapter-current="arrival"] .plate-body,
+.chapter[data-chapter-current="arrival"] .plate-light {
+  --silhouette: polygon(12% 65%, 6% 37%, 34% 14%, 57% 12%, 87% 28%, 95% 52%, 76% 84%, 47% 92%, 19% 84%);
+}
+.chapter[data-chapter-current="arrival"] .ink-cut-first {
+  clip-path: polygon(10% 41%, 33% 35%, 56% 51%, 88% 32%, 93% 51%, 75% 83%, 47% 89%, 21% 82%, 14% 65%);
+}
+
+.plate-drawing { rotate: var(--rest-angle, -3deg); }
+
+.plate-rule {
+  position: absolute;
+  right: 8%;
+  bottom: 11%;
+  width: 17%;
+  height: var(--stroke);
+  background: var(--ink);
+}
+
+canvas[data-fx] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+[data-fx="chapter"] { z-index: 1; }
+
+.workbench {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.station { background: var(--card); }
+.station-header { position: relative; z-index: 1; padding: 19px 21px 8px; }
+.station-header h2 { margin: 0; font: 700 clamp(1.5rem, 3vw, 2rem)/1.03 Georgia, serif; letter-spacing: -.04em; }
+.station-header p { margin: .55rem 0 0; font-size: .88rem; }
+
+.drag-board {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 132px;
+  margin: 4px 12px 0;
+  background: var(--plate);
+  border: 1px solid var(--rule);
+}
+
+.track { position: absolute; inset: 50% 19% auto; height: 1px; background: var(--ink); }
+.track i { position: absolute; top: -4px; width: 9px; height: 9px; background: var(--ink); border-radius: 50%; }
+.track i:first-child { left: -4px; }
+.track i:nth-child(2) { left: calc(50% - 4px); }
+.track i:last-child { right: -4px; }
+[data-fx="drag"] { z-index: 1; }
+.artwork {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: clamp(73px, 15vw, 117px);
+  height: 76px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+
+.artwork[data-dragging] { cursor: grabbing; }
+.artwork-face {
+  width: 92%;
+  height: 94%;
+  padding: 7px;
+  display: grid;
+  place-items: center;
+  background: var(--card);
+  border: var(--stroke) solid var(--ink);
+  box-shadow: 3px 4px 0 var(--ink);
+  border-radius: var(--corner);
+}
+
+.artwork-face span {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--shadow);
+  border: 1px solid var(--ink);
+  overflow: hidden;
+}
+
+.artwork-face span::before, .artwork-face span::after {
+  content: "";
+  position: absolute;
+  inset: 13% 10%;
+  background: var(--ink);
+  clip-path: polygon(0 80%, 33% 37%, 43% 42%, 68% 5%, 100% 76%, 94% 100%, 2% 100%);
+}
+
+.artwork-face span::after {
+  background: var(--card);
+  clip-path: polygon(35% 60%, 66% 12%, 78% 40%, 60% 36%);
+}
+
+.positions { padding: 3px 12px 8px; gap: 7px; }
+.positions button { flex: 1 0 min(30%, 56px); }
+.impression { display: grid; grid-template-rows: auto 1fr auto; }
+.impression .station-header, .counter { z-index: 2; }
+[data-fx="impact"] { z-index: 1; }
+
+.press-bed {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-height: 123px;
+  padding: 20px 10px;
+}
+
+.press { border: 0; background: transparent; padding: 0; }
+.press [data-press-face] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 51px;
+  padding: 9px 18px;
+  background: var(--card);
+  border: var(--stroke) solid var(--ink);
+  border-radius: var(--corner);
+  box-shadow: 4px 5px 0 var(--ink);
+  font: italic 700 clamp(1.15rem, 3.5vw, 1.48rem)/1 Georgia, serif;
+}
+
+.press:hover [data-press-face] { background: var(--plate); }
+.press[data-hit] [data-press-face] { background: var(--ink); color: var(--card); box-shadow: 0 0 var(--ink); }
+.counter { align-self: end; margin: 0 21px 15px; font-size: .86rem; font-weight: 700; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 710px) {
+  .chapter { grid-template: auto auto auto / 1fr; }
+  .chapter-copy { grid-row: 1; padding: 23px 19px 18px; }
+  .chapter .eyebrow { margin-bottom: .8rem; }
+  .chapter-description { margin-top: .85rem; }
+  .plate { grid-column: 1; grid-row: 2; height: clamp(125px, 31vw, 180px); border-left: 0; border-block: 1px solid var(--ink); }
+  .plate-drawing { width: min(43%, 158px); }
+  .plate-folio { width: min(46%, 184px); }
+  .chapters { grid-row: 3; padding: 5px 10px; }
+  .workbench { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  canvas[data-fx] { visibility: hidden; }
+}

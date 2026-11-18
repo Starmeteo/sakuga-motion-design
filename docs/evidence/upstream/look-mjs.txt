@@ -1,0 +1,8 @@
+upstream/skills/sakuga-vfx/look.mjs:33
+const ws = new WebSocket(targets.find((t) => t.type === 'page').webSocketDebuggerUrl); await new Promise((r) => ws.addEventListener('open', r, { once: true }));
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at upstream/skills/sakuga-vfx/look.mjs:33:34
+
+Node.js v26.1.0

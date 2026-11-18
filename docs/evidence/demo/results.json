@@ -1,0 +1,2795 @@
+{
+  "browser": "159.0.8154.6",
+  "live": {
+    "pressAfterKeyboardMouseAndCancel": {
+      "preset": "expressive",
+      "reduced": false,
+      "chapter": "pressure",
+      "placement": "center",
+      "registrations": 3,
+      "destroyed": false,
+      "now": 70.5,
+      "manual": false,
+      "running": true,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.5,
+      "artworkPosition": 0.5,
+      "artworkStretch": 1,
+      "dragSpeed": 0,
+      "releaseSpeed": 0,
+      "lastDirection": 0,
+      "pressScale": 0.58,
+      "hit": true,
+      "chapterOffset": 0,
+      "effects": {
+        "active": 9,
+        "counts": {
+          "impact:burst": 1,
+          "impact:shard": 7,
+          "impact:word": 1
+        },
+        "emitted": {
+          "impact:burst": 3,
+          "impact:shard": 21,
+          "impact:word": 3,
+          "impact:wedge": 3
+        },
+        "last": {
+          "channel": "impact",
+          "kind": "word",
+          "x": 322.7940625,
+          "y": 123.75,
+          "angle": -0.18,
+          "vx": 18,
+          "vy": -24
+        }
+      },
+      "layout": {
+        "chapter": {
+          "width": 1090,
+          "height": 399
+        },
+        "drag": {
+          "width": 599,
+          "height": 130
+        },
+        "impact": {
+          "width": 445,
+          "height": 278
+        }
+      }
+    },
+    "slow": {
+      "state": {
+        "preset": "expressive",
+        "reduced": false,
+        "chapter": "pressure",
+        "placement": "center",
+        "registrations": 3,
+        "destroyed": false,
+        "now": 1968.7,
+        "manual": false,
+        "running": true,
+        "dragging": true,
+        "pressed": false,
+        "preview": 0.81,
+        "artworkPosition": 0.8045,
+        "artworkStretch": 1.0099,
+        "dragSpeed": 0.0457,
+        "releaseSpeed": 0,
+        "lastDirection": 1,
+        "pressScale": 1,
+        "hit": false,
+        "chapterOffset": 0,
+        "effects": {
+          "active": 0,
+          "counts": {},
+          "emitted": {
+            "impact:burst": 3,
+            "impact:shard": 21,
+            "impact:word": 3,
+            "impact:wedge": 3,
+            "impact:puff": 2
+          },
+          "last": {
+            "channel": "impact",
+            "kind": "puff",
+            "x": 332.3540625,
+            "y": 181.75,
+            "angle": 0,
+            "vx": 52,
+            "vy": -44
+          }
+        },
+        "layout": {
+          "chapter": {
+            "width": 1090,
+            "height": 399
+          },
+          "drag": {
+            "width": 599,
+            "height": 130
+          },
+          "impact": {
+            "width": 445,
+            "height": 278
+          }
+        }
+      },
+      "pixels": {
+        "chapter": 0,
+        "drag": 0,
+        "impact": 0
+      }
+    },
+    "fast": {
+      "state": {
+        "preset": "expressive",
+        "reduced": false,
+        "chapter": "pressure",
+        "placement": "right",
+        "registrations": 3,
+        "destroyed": false,
+        "now": 2411.1,
+        "manual": false,
+        "running": true,
+        "dragging": true,
+        "pressed": false,
+        "preview": 0.19,
+        "artworkPosition": 0.4566,
+        "artworkStretch": 1.1935,
+        "dragSpeed": -0.9669,
+        "releaseSpeed": 0,
+        "lastDirection": -1,
+        "pressScale": 1,
+        "hit": false,
+        "chapterOffset": 0,
+        "effects": {
+          "active": 4,
+          "counts": {
+            "drag:puff": 2,
+            "drag:line": 2
+          },
+          "emitted": {
+            "impact:burst": 3,
+            "impact:shard": 21,
+            "impact:word": 3,
+            "impact:wedge": 3,
+            "impact:puff": 2,
+            "drag:puff": 2,
+            "drag:line": 2
+          },
+          "last": {
+            "channel": "drag",
+            "kind": "line",
+            "x": 418.49812499999996,
+            "y": 62.42846695186229,
+            "angle": 0,
+            "vx": 43,
+            "vy": 0
+          }
+        },
+        "layout": {
+          "chapter": {
+            "width": 1090,
+            "height": 399
+          },
+          "drag": {
+            "width": 599,
+            "height": 130
+          },
+          "impact": {
+            "width": 445,
+            "height": 278
+          }
+        }
+      },
+      "pixels": {
+        "chapter": 0,
+        "drag": 1236,
+        "impact": 0
+      }
+    },
+    "heldRelease": {
+      "preset": "expressive",
+      "reduced": false,
+      "chapter": "pressure",
+      "placement": "right",
+      "registrations": 3,
+      "destroyed": false,
+      "now": 3775.2,
+      "manual": false,
+      "running": true,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.81,
+      "artworkPosition": 0.8066,
+      "artworkStretch": 1.0042,
+      "dragSpeed": 0,
+      "releaseSpeed": 0.0215,
+      "lastDirection": 1,
+      "pressScale": 1,
+      "hit": false,
+      "chapterOffset": 0,
+      "effects": {
+        "active": 0,
+        "counts": {},
+        "emitted": {
+          "impact:burst": 3,
+          "impact:shard": 21,
+          "impact:word": 3,
+          "impact:wedge": 3,
+          "impact:puff": 2,
+          "drag:puff": 2,
+          "drag:line": 2
+        },
+        "last": {
+          "channel": "drag",
+          "kind": "line",
+          "x": 418.49812499999996,
+          "y": 62.42846695186229,
+          "angle": 0,
+          "vx": 43,
+          "vy": 0
+        }
+      },
+      "layout": {
+        "chapter": {
+          "width": 1090,
+          "height": 399
+        },
+        "drag": {
+          "width": 599,
+          "height": 130
+        },
+        "impact": {
+          "width": 445,
+          "height": 278
+        }
+      }
+    },
+    "afterChapterReplacements": {
+      "preset": "expressive",
+      "reduced": false,
+      "chapter": "pressure",
+      "placement": "right",
+      "registrations": 3,
+      "destroyed": false,
+      "now": 3875.2,
+      "manual": false,
+      "running": true,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.81,
+      "artworkPosition": 0.8077,
+      "artworkStretch": 1.0029,
+      "dragSpeed": 0,
+      "releaseSpeed": 0.0215,
+      "lastDirection": 1,
+      "pressScale": 1,
+      "hit": false,
+      "chapterOffset": 23,
+      "effects": {
+        "active": 3,
+        "counts": {
+          "chapter:slash": 1,
+          "chapter:wedge": 2
+        },
+        "emitted": {
+          "impact:burst": 3,
+          "impact:shard": 21,
+          "impact:word": 3,
+          "impact:wedge": 3,
+          "impact:puff": 2,
+          "drag:puff": 2,
+          "drag:line": 2,
+          "chapter:slash": 3,
+          "chapter:wedge": 6
+        },
+        "last": {
+          "channel": "chapter",
+          "kind": "wedge",
+          "x": 798.0135302734375,
+          "y": 173.49217224121094,
+          "angle": 2.851592653589793,
+          "vx": -93,
+          "vy": -20
+        }
+      },
+      "layout": {
+        "chapter": {
+          "width": 1090,
+          "height": 399
+        },
+        "drag": {
+          "width": 599,
+          "height": 130
+        },
+        "impact": {
+          "width": 445,
+          "height": 278
+        }
+      }
+    },
+    "resized": {
+      "preset": "expressive",
+      "reduced": false,
+      "chapter": "pressure",
+      "placement": "right",
+      "registrations": 3,
+      "destroyed": false,
+      "now": 3875.2,
+      "manual": false,
+      "running": false,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.81,
+      "artworkPosition": 0.81,
+      "artworkStretch": 1,
+      "dragSpeed": 0,
+      "releaseSpeed": 0,
+      "lastDirection": 0,
+      "pressScale": 1,
+      "hit": false,
+      "chapterOffset": 0,
+      "effects": {
+        "active": 0,
+        "counts": {},
+        "emitted": {
+          "impact:burst": 3,
+          "impact:shard": 21,
+          "impact:word": 3,
+          "impact:wedge": 3,
+          "impact:puff": 2,
+          "drag:puff": 2,
+          "drag:line": 2,
+          "chapter:slash": 3,
+          "chapter:wedge": 6
+        },
+        "last": {
+          "channel": "chapter",
+          "kind": "wedge",
+          "x": 798.0135302734375,
+          "y": 173.49217224121094,
+          "angle": 2.851592653589793,
+          "vx": -93,
+          "vy": -20
+        }
+      },
+      "layout": {
+        "chapter": {
+          "width": 666,
+          "height": 339
+        },
+        "drag": {
+          "width": 352,
+          "height": 130
+        },
+        "impact": {
+          "width": 268,
+          "height": 288
+        }
+      }
+    },
+    "reduced": {
+      "preset": "expressive",
+      "reduced": true,
+      "chapter": "arrival",
+      "placement": "right",
+      "registrations": 4,
+      "destroyed": false,
+      "now": 3875.2,
+      "manual": false,
+      "running": false,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.81,
+      "artworkPosition": 0.81,
+      "artworkStretch": 1,
+      "dragSpeed": 0,
+      "releaseSpeed": 0,
+      "lastDirection": 0,
+      "pressScale": 1,
+      "hit": false,
+      "chapterOffset": 0,
+      "effects": {
+        "active": 0,
+        "counts": {},
+        "emitted": {
+          "impact:burst": 3,
+          "impact:shard": 21,
+          "impact:word": 3,
+          "impact:wedge": 3,
+          "impact:puff": 2,
+          "drag:puff": 2,
+          "drag:line": 2,
+          "chapter:slash": 4,
+          "chapter:wedge": 8
+        },
+        "last": {
+          "channel": "chapter",
+          "kind": "wedge",
+          "x": 532.1444189453125,
+          "y": 143.50000762939453,
+          "angle": -0.29,
+          "vx": 93,
+          "vy": -20
+        }
+      },
+      "layout": {
+        "chapter": {
+          "width": 666,
+          "height": 339
+        },
+        "drag": {
+          "width": 352,
+          "height": 130
+        },
+        "impact": {
+          "width": 268,
+          "height": 288
+        }
+      }
+    },
+    "destroyed": {
+      "preset": "expressive",
+      "reduced": false,
+      "chapter": "flight",
+      "placement": "right",
+      "registrations": 4,
+      "destroyed": true,
+      "now": 4005.8,
+      "manual": false,
+      "running": false,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.81,
+      "artworkPosition": 0.81,
+      "artworkStretch": 1,
+      "dragSpeed": 0,
+      "releaseSpeed": 0,
+      "lastDirection": 0,
+      "pressScale": 1,
+      "hit": false,
+      "chapterOffset": 0,
+      "effects": {
+        "active": 0,
+        "counts": {},
+        "emitted": {
+          "impact:burst": 3,
+          "impact:shard": 21,
+          "impact:word": 3,
+          "impact:wedge": 3,
+          "impact:puff": 2,
+          "drag:puff": 2,
+          "drag:line": 2,
+          "chapter:slash": 5,
+          "chapter:wedge": 10
+        },
+        "last": {
+          "channel": "chapter",
+          "kind": "wedge",
+          "x": 476.1444189453125,
+          "y": 143.50000762939453,
+          "angle": 2.851592653589793,
+          "vx": -93,
+          "vy": -20
+        }
+      },
+      "layout": {
+        "chapter": {
+          "width": 666,
+          "height": 339
+        },
+        "drag": {
+          "width": 352,
+          "height": 130
+        },
+        "impact": {
+          "width": 268,
+          "height": 288
+        }
+      }
+    },
+    "reducedAtLoad": {
+      "preset": "expressive",
+      "reduced": true,
+      "chapter": "flight",
+      "placement": "left",
+      "registrations": 1,
+      "destroyed": false,
+      "now": 0,
+      "manual": false,
+      "running": false,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.19,
+      "artworkPosition": 0.19,
+      "artworkStretch": 1,
+      "dragSpeed": 0,
+      "releaseSpeed": 0,
+      "lastDirection": 0,
+      "pressScale": 1,
+      "hit": false,
+      "chapterOffset": 0,
+      "effects": {
+        "active": 0,
+        "counts": {},
+        "emitted": {},
+        "last": null
+      },
+      "layout": {
+        "chapter": {
+          "width": 1069,
+          "height": 399
+        },
+        "drag": {
+          "width": 587,
+          "height": 130
+        },
+        "impact": {
+          "width": 436,
+          "height": 278
+        }
+      }
+    },
+    "touch390": {
+      "preset": "expressive",
+      "reduced": false,
+      "chapter": "flight",
+      "placement": "left",
+      "registrations": 1,
+      "destroyed": false,
+      "now": 2001.4,
+      "manual": false,
+      "running": false,
+      "dragging": false,
+      "pressed": false,
+      "preview": 0.19,
+      "artworkPosition": 0.19,
+      "artworkStretch": 1,
+      "dragSpeed": 0,
+      "releaseSpeed": 0,
+      "lastDirection": 1,
+      "pressScale": 1,
+      "hit": false,
+      "chapterOffset": 0,
+      "effects": {
+        "active": 0,
+        "counts": {},
+        "emitted": {
+          "chapter:slash": 1,
+          "chapter:wedge": 2,
+          "chapter:puff": 2,
+          "drag:puff": 1,
+          "drag:line": 1,
+          "drag:slash": 1,
+          "impact:wedge": 1,
+          "impact:burst": 1,
+          "impact:shard": 7,
+          "impact:word": 1,
+          "impact:puff": 2
+        },
+        "last": {
+          "channel": "impact",
+          "kind": "puff",
+          "x": 263.274375,
+          "y": 156.015625,
+          "angle": 0,
+          "vx": 52,
+          "vy": -44
+        }
+      },
+      "layout": {
+        "chapter": {
+          "width": 343,
+          "height": 347
+        },
+        "drag": {
+          "width": 317,
+          "height": 130
+        },
+        "impact": {
+          "width": 343,
+          "height": 235
+        }
+      }
+    }
+  },
+  "stepped": {
+    "restrained": [
+      {
+        "time": 0,
+        "hash": "3d06e55c94f99e9e19f4682807d03f1ba7e4f99e5ef9d2105b6d0f65f56aaff1",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 0
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 0,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {},
+            "last": null
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 16,
+        "hash": "4f1b9abf94fb62ac200f647ade437dfe1543ab8292e69337da6b85a79bd69af6",
+        "pixels": {
+          "chapter": 596,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 42
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 16,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": -12,
+          "effects": {
+            "active": 1,
+            "counts": {
+              "chapter:slash": 1
+            },
+            "emitted": {
+              "chapter:slash": 1
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "slash",
+              "x": 810.8436767578125,
+              "y": 200.49219512939453,
+              "angle": -0.32,
+              "vx": 70,
+              "vy": 0
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 75,
+        "hash": "9132a6f06fb6304cf3c0fc4fe18bc7fa25c096cc95cc7e18192ec6ad3b56018c",
+        "pixels": {
+          "chapter": 899,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 2
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 75,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": -2.6893,
+          "effects": {
+            "active": 1,
+            "counts": {
+              "chapter:slash": 1
+            },
+            "emitted": {
+              "chapter:slash": 1
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "slash",
+              "x": 810.8436767578125,
+              "y": 200.49219512939453,
+              "angle": -0.32,
+              "vx": 70,
+              "vy": 0
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 140,
+        "hash": "1ccc09468ebb02b8a983584f57699688e0f2e15c1906bf0d77b21d313a234755",
+        "pixels": {
+          "chapter": 598,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 15
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 140,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0.5131,
+          "effects": {
+            "active": 2,
+            "counts": {
+              "chapter:slash": 1,
+              "chapter:puff": 1
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:puff": 1
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 795.3766174316406,
+              "y": 225.4339172363281,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 230,
+        "hash": "be058fd99a672cccd73ae8add40140860ad96b56d8f2f007cc8a75c203612349",
+        "pixels": {
+          "chapter": 218,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 0
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 230,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0.2843,
+          "effects": {
+            "active": 1,
+            "counts": {
+              "chapter:puff": 1
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:puff": 1
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 795.3766174316406,
+              "y": 225.4339172363281,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 380,
+        "hash": "be67daa062eb420c54b38f33a964a333dc4fe1d736adc75c77ab038752ccfaaf",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 0
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 380,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 1,
+            "counts": {
+              "chapter:puff": 1
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:puff": 1
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 795.3766174316406,
+              "y": 225.4339172363281,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 560,
+        "hash": "be67daa062eb420c54b38f33a964a333dc4fe1d736adc75c77ab038752ccfaaf",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 0
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 560,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:puff": 1
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 795.3766174316406,
+              "y": 225.4339172363281,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 850,
+        "hash": "be67daa062eb420c54b38f33a964a333dc4fe1d736adc75c77ab038752ccfaaf",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#242722",
+          "hits": 0
+        },
+        "state": {
+          "preset": "restrained",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 850,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:puff": 1
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 795.3766174316406,
+              "y": 225.4339172363281,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1071,
+              "height": 401
+            },
+            "drag": {
+              "width": 589,
+              "height": 130
+            },
+            "impact": {
+              "width": 438,
+              "height": 278
+            }
+          }
+        }
+      }
+    ],
+    "expressive": [
+      {
+        "time": 0,
+        "hash": "017b00b9d585f9a7188001a05d79c1464c8697ae461f030866d8a63ba576ae88",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 0,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {},
+            "last": null
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 16,
+        "hash": "022d3a5237cdb07f616ffb11db45fa02bf1f18a6287cf90fc143fdfc69908969",
+        "pixels": {
+          "chapter": 2203,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 407
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 16,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": -23,
+          "effects": {
+            "active": 3,
+            "counts": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "wedge",
+              "x": 837.3124267578125,
+              "y": 173.49219512939453,
+              "angle": -0.29,
+              "vx": 93,
+              "vy": -20
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 75,
+        "hash": "d5ed2519766eb2b17371e4244fc3ebbcc6cf6d20d1dc1afacb50864e097085f7",
+        "pixels": {
+          "chapter": 2985,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 344
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 75,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": -8.1583,
+          "effects": {
+            "active": 3,
+            "counts": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "wedge",
+              "x": 837.3124267578125,
+              "y": 173.49219512939453,
+              "angle": -0.29,
+              "vx": 93,
+              "vy": -20
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 140,
+        "hash": "09722cff4c3987316b74ddb2640cf2c5772c72a38b72b6a48bc948c7e71dfd9c",
+        "pixels": {
+          "chapter": 1900,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 110
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 140,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0.0554,
+          "effects": {
+            "active": 3,
+            "counts": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "wedge",
+              "x": 837.3124267578125,
+              "y": 173.49219512939453,
+              "angle": -0.29,
+              "vx": 93,
+              "vy": -20
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 230,
+        "hash": "d133ade053a1572d276788e0a18375b12b0ffd665af1606b8b81f5accdf733af",
+        "pixels": {
+          "chapter": 1824,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 99
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 230,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 2.957,
+          "effects": {
+            "active": 5,
+            "counts": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2,
+              "chapter:puff": 2
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2,
+              "chapter:puff": 2
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 771.0432434082031,
+              "y": 232.62941619873044,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 380,
+        "hash": "6d0e08399e7fdbb1e60c794406625f7a361745794b39e20b7a6c65c27db2d380",
+        "pixels": {
+          "chapter": 606,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 380,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0.4279,
+          "effects": {
+            "active": 2,
+            "counts": {
+              "chapter:puff": 2
+            },
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2,
+              "chapter:puff": 2
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 771.0432434082031,
+              "y": 232.62941619873044,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 560,
+        "hash": "78f211c8d70d38c2c2dbb83c81c1230e173ee4528a92514b8aa8ebc9d7be827d",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 560,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2,
+              "chapter:puff": 2
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 771.0432434082031,
+              "y": 232.62941619873044,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 850,
+        "hash": "78f211c8d70d38c2c2dbb83c81c1230e173ee4528a92514b8aa8ebc9d7be827d",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "flight",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 850,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {
+              "chapter:slash": 1,
+              "chapter:wedge": 2,
+              "chapter:puff": 2
+            },
+            "last": {
+              "channel": "chapter",
+              "kind": "puff",
+              "x": 771.0432434082031,
+              "y": 232.62941619873044,
+              "angle": 0,
+              "vx": -48,
+              "vy": -42
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      }
+    ],
+    "impact": [
+      {
+        "time": 0,
+        "hash": "2b906e5502b2478bccb0e144bc291c0c1807c6bd72aa41f8734ad95190d2aef9",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 0,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {},
+            "last": null
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 16,
+        "hash": "f74ba2837f5198466fce72aca2f9af316a0af878278e881439c38ea7a1b7587f",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 16,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": true,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 1,
+            "counts": {
+              "impact:wedge": 1
+            },
+            "emitted": {
+              "impact:wedge": 1
+            },
+            "last": {
+              "channel": "impact",
+              "kind": "wedge",
+              "x": 270.60062500000004,
+              "y": 151.47000000000003,
+              "angle": -1.1,
+              "vx": 6,
+              "vy": -20
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 94,
+        "hash": "82527f446b5fc1aa937a36ad274370e4058a58d56470f99805573405e40c1f68",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 79
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 94,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": true,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 0.8117,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 1,
+            "counts": {
+              "impact:wedge": 1
+            },
+            "emitted": {
+              "impact:wedge": 1
+            },
+            "last": {
+              "channel": "impact",
+              "kind": "wedge",
+              "x": 270.60062500000004,
+              "y": 151.47000000000003,
+              "angle": -1.1,
+              "vx": 6,
+              "vy": -20
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 145,
+        "hash": "021dbd80b506601d53120d3c201db297d3f8fb5d315a36980a43eae712ad6bf9",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 3545
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 1,
+          "destroyed": false,
+          "now": 145,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 0.58,
+          "hit": true,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 9,
+            "counts": {
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1
+            },
+            "emitted": {
+              "impact:wedge": 1,
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1
+            },
+            "last": {
+              "channel": "impact",
+              "kind": "word",
+              "x": 318.4659375,
+              "y": 123.75,
+              "angle": -0.18,
+              "vx": 18,
+              "vy": -24
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 184,
+        "hash": "14d40916c9cdf8d58232c9814ad8d7a0f7d4f67b2084c42f598121b14526c97d",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 6228
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 1,
+          "destroyed": false,
+          "now": 184,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 0.64,
+          "hit": true,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 9,
+            "counts": {
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1
+            },
+            "emitted": {
+              "impact:wedge": 1,
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1
+            },
+            "last": {
+              "channel": "impact",
+              "kind": "word",
+              "x": 318.4659375,
+              "y": 123.75,
+              "angle": -0.18,
+              "vx": 18,
+              "vy": -24
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 270,
+        "hash": "bb007d67cc87d610eb190fa144e9abdac3fe200ca10aa222ca6decd9629a06f8",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 5411
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 1,
+          "destroyed": false,
+          "now": 270,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1.1023,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 11,
+            "counts": {
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1,
+              "impact:puff": 2
+            },
+            "emitted": {
+              "impact:wedge": 1,
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1,
+              "impact:puff": 2
+            },
+            "last": {
+              "channel": "impact",
+              "kind": "puff",
+              "x": 328.0259375,
+              "y": 181.75,
+              "angle": 0,
+              "vx": 52,
+              "vy": -44
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 415,
+        "hash": "3d0efe7d13b68a9384c0eb7147da9971bf650f848587b4d71d9260e82f0367f8",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 2485
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 1,
+          "destroyed": false,
+          "now": 415,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1.0842,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 10,
+            "counts": {
+              "impact:shard": 7,
+              "impact:word": 1,
+              "impact:puff": 2
+            },
+            "emitted": {
+              "impact:wedge": 1,
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1,
+              "impact:puff": 2
+            },
+            "last": {
+              "channel": "impact",
+              "kind": "puff",
+              "x": 328.0259375,
+              "y": 181.75,
+              "angle": 0,
+              "vx": 52,
+              "vy": -44
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 1000,
+        "hash": "4426b75e22c06df94b64e9812c8a9eb7e68f725cace3b3b7f52cdea8ea6cb0b7",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 1,
+          "destroyed": false,
+          "now": 1000,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {
+              "impact:wedge": 1,
+              "impact:burst": 1,
+              "impact:shard": 7,
+              "impact:word": 1,
+              "impact:puff": 2
+            },
+            "last": {
+              "channel": "impact",
+              "kind": "puff",
+              "x": 328.0259375,
+              "y": 181.75,
+              "angle": 0,
+              "vx": 52,
+              "vy": -44
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      }
+    ],
+    "drag": [
+      {
+        "time": 0,
+        "hash": "1b8f66461da6435d4417fcbb58faeabea4b0a3855fda4808b10f54828ae0069b",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 0,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {},
+            "last": null
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 16,
+        "hash": "1b8f66461da6435d4417fcbb58faeabea4b0a3855fda4808b10f54828ae0069b",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 16,
+          "manual": true,
+          "running": false,
+          "dragging": true,
+          "pressed": false,
+          "preview": 0.5,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 0,
+          "lastDirection": 0,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {},
+            "last": null
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 39,
+        "hash": "1b8f66461da6435d4417fcbb58faeabea4b0a3855fda4808b10f54828ae0069b",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 39,
+          "manual": true,
+          "running": false,
+          "dragging": true,
+          "pressed": false,
+          "preview": 0.57,
+          "artworkPosition": 0.5,
+          "artworkStretch": 1,
+          "dragSpeed": 1.4961,
+          "releaseSpeed": 0,
+          "lastDirection": 1,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {},
+            "last": null
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 66,
+        "hash": "ea93b8766b6b31fdd34503ff6a748d31ab6734e7c0c84a05e8e0b9502d601268",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 66,
+          "manual": true,
+          "running": false,
+          "dragging": true,
+          "pressed": false,
+          "preview": 0.66,
+          "artworkPosition": 0.5072,
+          "artworkStretch": 1.2119,
+          "dragSpeed": 2.3189,
+          "releaseSpeed": 0,
+          "lastDirection": 1,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {},
+            "last": null
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 91,
+        "hash": "1f51aeb29242efc5a2a2e29853fd3b6d48011f0db80ad5eda721534777e02127",
+        "pixels": {
+          "chapter": 0,
+          "drag": 593,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "center",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 91,
+          "manual": true,
+          "running": false,
+          "dragging": true,
+          "pressed": false,
+          "preview": 0.8,
+          "artworkPosition": 0.5272,
+          "artworkStretch": 1.3363,
+          "dragSpeed": 3.1712,
+          "releaseSpeed": 0,
+          "lastDirection": 1,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 2,
+            "counts": {
+              "drag:puff": 1,
+              "drag:line": 1
+            },
+            "emitted": {
+              "drag:puff": 1,
+              "drag:line": 1
+            },
+            "last": {
+              "channel": "drag",
+              "kind": "line",
+              "x": 236.76812685343657,
+              "y": 59.39785243470226,
+              "angle": 3.141592653589793,
+              "vx": -43,
+              "vy": 0
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 111,
+        "hash": "63f9cbd995da3073d62a5ac02b8fa8bc14e6e01925fa1ca50483ed5d016861a3",
+        "pixels": {
+          "chapter": 0,
+          "drag": 961,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "right",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 111,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.81,
+          "artworkPosition": 0.5581,
+          "artworkStretch": 1.36,
+          "dragSpeed": 0,
+          "releaseSpeed": 2.5063,
+          "lastDirection": 1,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 3,
+            "counts": {
+              "drag:puff": 1,
+              "drag:line": 1,
+              "drag:slash": 1
+            },
+            "emitted": {
+              "drag:puff": 1,
+              "drag:line": 1,
+              "drag:slash": 1
+            },
+            "last": {
+              "channel": "drag",
+              "kind": "slash",
+              "x": 524.61,
+              "y": 53.72000000000003,
+              "angle": 0,
+              "vx": 126,
+              "vy": 0
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 157,
+        "hash": "db068461e6a8d9801ce9252bf18d5e1d576ddff9b787b8d83093c1da8fe518cb",
+        "pixels": {
+          "chapter": 0,
+          "drag": 1286,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "right",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 157,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.81,
+          "artworkPosition": 0.6541,
+          "artworkStretch": 1.2124,
+          "dragSpeed": 0,
+          "releaseSpeed": 2.5063,
+          "lastDirection": 1,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 3,
+            "counts": {
+              "drag:puff": 1,
+              "drag:line": 1,
+              "drag:slash": 1
+            },
+            "emitted": {
+              "drag:puff": 1,
+              "drag:line": 1,
+              "drag:slash": 1
+            },
+            "last": {
+              "channel": "drag",
+              "kind": "slash",
+              "x": 524.61,
+              "y": 53.72000000000003,
+              "angle": 0,
+              "vx": 126,
+              "vy": 0
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 320,
+        "hash": "e973c6cac248904d5b5cb90c0222d5765ce0550c2f281634a74c7f213bc9b2d8",
+        "pixels": {
+          "chapter": 0,
+          "drag": 582,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "right",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 320,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.81,
+          "artworkPosition": 0.8151,
+          "artworkStretch": 1.0166,
+          "dragSpeed": 0,
+          "releaseSpeed": 2.5063,
+          "lastDirection": 1,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 3,
+            "counts": {
+              "drag:puff": 1,
+              "drag:line": 1,
+              "drag:slash": 1
+            },
+            "emitted": {
+              "drag:puff": 1,
+              "drag:line": 1,
+              "drag:slash": 1
+            },
+            "last": {
+              "channel": "drag",
+              "kind": "slash",
+              "x": 524.61,
+              "y": 53.72000000000003,
+              "angle": 0,
+              "vx": 126,
+              "vy": 0
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      },
+      {
+        "time": 750,
+        "hash": "530c5c17d633228f09a2c9d9abc0d3514856d2e11fee8fae2cdd90e74f65714e",
+        "pixels": {
+          "chapter": 0,
+          "drag": 0,
+          "impact": 0
+        },
+        "chapterInk": {
+          "hex": "#382723",
+          "hits": 0
+        },
+        "state": {
+          "preset": "expressive",
+          "reduced": false,
+          "chapter": "pressure",
+          "placement": "right",
+          "registrations": 0,
+          "destroyed": false,
+          "now": 750,
+          "manual": true,
+          "running": false,
+          "dragging": false,
+          "pressed": false,
+          "preview": 0.81,
+          "artworkPosition": 0.81,
+          "artworkStretch": 1,
+          "dragSpeed": 0,
+          "releaseSpeed": 2.5063,
+          "lastDirection": 1,
+          "pressScale": 1,
+          "hit": false,
+          "chapterOffset": 0,
+          "effects": {
+            "active": 0,
+            "counts": {},
+            "emitted": {
+              "drag:puff": 1,
+              "drag:line": 1,
+              "drag:slash": 1
+            },
+            "last": {
+              "channel": "drag",
+              "kind": "slash",
+              "x": 524.61,
+              "y": 53.72000000000003,
+              "angle": 0,
+              "vx": 126,
+              "vy": 0
+            }
+          },
+          "layout": {
+            "chapter": {
+              "width": 1069,
+              "height": 399
+            },
+            "drag": {
+              "width": 587,
+              "height": 130
+            },
+            "impact": {
+              "width": 436,
+              "height": 278
+            }
+          }
+        }
+      }
+    ],
+    "seed": {
+      "sameSeed": true,
+      "alternateSeedDiffers": true
+    }
+  },
+  "errors": []
+}

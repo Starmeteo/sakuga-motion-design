@@ -1,0 +1,8 @@
+upstream/tools/test.mjs:14
+const ws = new WebSocket(targets.find((t) => t.type === 'page').webSocketDebuggerUrl);
+                                 ^
+
+TypeError: Cannot read properties of undefined (reading 'find')
+    at upstream/tools/test.mjs:14:34
+
+Node.js v26.1.0

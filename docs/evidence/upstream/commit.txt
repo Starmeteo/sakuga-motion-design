@@ -1,0 +1,14 @@
+commit c3dabb173928a3ad2372183103caf2e6f50953d0
+Author:     Fink <finktheartist@gmail.com>
+AuthorDate: Sun Nov 15 15:08:17 2026 -0600
+Commit:     Fink <finktheartist@gmail.com>
+CommitDate: Sun Nov 15 15:08:17 2026 -0600
+
+    One look: remove the Slash and Manga themes
+
+    Drops the theme switch, setTheme and data-sakuga-theme, the glow, screentone,
+    dark smoke, lightning and shockwave-ring effects, the per-theme branches in the
+    components, and the BANG and ズバッ lettering they used. The core shrinks from
+    about 58 KB to 40 KB. Docs, gallery, demo pages and the test follow.
+
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
